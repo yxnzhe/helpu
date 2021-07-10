@@ -32,7 +32,7 @@
                 echo "Account created successfully!";    
             }
             else{
-                echo "Error: ".$sql."<br>".mysqli_error($conn);
+                echo "Error: ".$sql."<br>".$conn->error;
             }
 
             $stmt->close();

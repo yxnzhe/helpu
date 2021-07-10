@@ -28,7 +28,7 @@
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("sss", $name, $email, $password);
 
-            if($stmt->execute()){
+            if($stmt->execute()) {
                 echo "Account created successfully!";    
             }
             else{

@@ -22,11 +22,12 @@
         }
         else { //If all field is with value and the email format is correct, then will create the user in our database
             $conn = connectDb();
+            $id = uniqid(); //Auto generate a string with number id
             $password = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO `user` (name, email, password) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO `user` (id, name, email, password) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sss", $name, $email, $password);
+            $stmt->bind_param("ssss", $id, $name, $email, $password);
 
             if($stmt->execute()) {
                 echo "Account created successfully!";    
@@ -34,7 +35,6 @@
             else{
                 echo "Error: ".$sql."<br>".mysqli_error($conn);
             }
-
             $stmt->close();
             $conn->close();
         }

@@ -21,7 +21,7 @@
             echo "Invalid email format!";
         }
         else { //If all field is with value and the email format is correct, then will create the user in our database
-            $conn = connectDb();
+            $conn = connectDb(); //Connect to database
             $id = uniqid(); //Auto generate a string with number id
             $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -33,7 +33,7 @@
                 echo "Account created successfully!";    
             }
             else{
-                echo "Error: ".$sql."<br>".$conn->error;
+                echo $conn->error; //error message will prompt
             }
             $stmt->close();
             $conn->close();

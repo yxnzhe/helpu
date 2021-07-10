@@ -34,6 +34,9 @@
             else{
                 echo "Error: ".$sql."<br>".mysqli_error($conn);
             }
+
+            $stmt->close();
+            $conn->close();
         }
     }
 ?>

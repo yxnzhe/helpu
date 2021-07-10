@@ -71,8 +71,8 @@
             else {
                 echo $conn->error;
             }
+            $stmt->close();
+            $conn->close();
         }
-        $stmt->close();
-        $conn->close();
     }
 ?>

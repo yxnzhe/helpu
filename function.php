@@ -13,7 +13,7 @@
         return $conn;
     }
 
-    function register($name, $email, $password){ //Register function
+    function register($name, $email, $password) { //Register function
         if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
             echo "All field is Mandatory!";
         }
@@ -33,7 +33,7 @@
                 echo "Account created successfully!";    
             }
             else{
-                echo "Error: ".$sql."<br>".mysqli_error($conn);
+                echo "Error: ".$sql."<br>".$conn->error;
             }
             $stmt->close();
             $conn->close();

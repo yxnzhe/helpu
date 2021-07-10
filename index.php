@@ -1,3 +1,7 @@
-<?php
-    echo "try";
-?>
+<html>
+
+<head>
+    <title>Helpu Website</title>
+</head>
+
+</html>

@@ -21,20 +21,20 @@
             echo "Invalid email format!";
         }
         else { //If all field is with value and the email format is correct, then will create the user in our database
-            $conn = connectDb(); //Connect to database
-            $id = uniqid(); //Auto generate a string with number id
+            $conn = connectDb();
             $password = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO `user` (id, name, email, password) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO `user` (name, email, password) VALUES (?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssss", $id, $name, $email, $password);
+            $stmt->bind_param("sss", $name, $email, $password);
 
             if($stmt->execute()) {
                 echo "Account created successfully!";    
             }
             else{
-                echo $conn->error; //error message will prompt
+                echo "Error: ".$sql."<br>".$conn->error;
             }
+
             $stmt->close();
             $conn->close();
         }
@@ -71,6 +71,35 @@
             else { //if $stmt cant execute
                 echo $conn->error; //error message will prompt
             }
+            $stmt->close();
+            $conn->close();
+        }
+    }
+
+    function post($user_id, $content) {
+        if($content == "") {
+            echo "Content is empty";
+        }
+        else {
+            $id = uniqid();
+            date_default_timezone_set("Asia/Kuala_Lumpur"); //to set the timezone to KL
+            $datetime = new DateTime(); //to get the current time
+            $dt= $datetime->format('Y-m-d\TH:i:s'); //to chg the format of the datetime
+            $newDateTime = date("Y-m-d H:i:s", strtotime($dt)); //to chg the datetime to string
+
+            $conn = connectDb();
+            $sql = "INSERT INTO `post` (id, user_id, content, created_at) VALUES (?, ?, ?, ?)";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssss", $id, $user_id, $content, $newDateTime);
+            
+            if($stmt->execute()) { //to execute the statement
+                echo 'too be decided line97 of function.php'; //alert tag will be present if the statement is successfully submitted
+            }
+            else {
+                echo "Failed to create Post. Reason: ".$conn->error; //error message will be present if failed to execute the statement
+            }
+
             $stmt->close();
             $conn->close();
         }

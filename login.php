@@ -1,7 +1,6 @@
 <?php
-
 require_once 'function.php'; 
-$conn = connectDb(""); 
+$conn = connectDb(); 
 
 if (isset($_POST['submit'])) { 
   $email = stripslashes($_REQUEST['email']);

@@ -26,7 +26,7 @@
         else { //If all field is with value and the email format is correct, then will create the user in our database
             $conn = connectDb();
             $password = password_hash($password, PASSWORD_DEFAULT);
-            $userId = uniqid(); //Auto generate a string + number comment id
+            $userId = md5(microtime()); //Auto generate a string + number comment id
 
             $sql = "INSERT INTO `user` (id, name, email, password) VALUES (?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
@@ -88,7 +88,7 @@
             echo "Your content exceeded 255 characters.";
         }
         else {
-            $id = uniqid();
+            $id = md5(microtime());;
             $userId = $_SESSION["userId"];
 
             date_default_timezone_set("Asia/Kuala_Lumpur"); //to set the timezone to KL
@@ -151,7 +151,7 @@
         }
         else{
             $conn = connectDb(); //connect to databsae
-            $commentId = uniqid(); //Auto generate a string + number comment id
+            $commentId = md5(microtime()); //Auto generate a string + number comment id
             $user_id = $_SESSION["userId"]; //Get user_id from session that was set when user login
 
             date_default_timezone_set("Asia/Kuala_Lumpur"); //Set the timezone to Kuala Lumpur/ Malaysia/ Asia

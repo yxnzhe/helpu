@@ -75,4 +75,36 @@
             $conn->close();
         }
     }
+
+    function addComment($post_id, $comment){
+        if($comment == ""){ //If comment is submitted without any values
+            echo "Your cannot post an empty comment.";
+        }
+        else if(strlen($comment) > 150){ //If the comment exceeded 150 characters
+            echo "Your comment exceeded 150 characters.";
+        }
+        else{
+            $conn = connectDb(); //connect to databsae
+            $comment_id = uniqid(); //Auto generate a string + number comment id
+            $user_id = $_SESSION["userId"]; //Get user_id from session that was set when user login
+
+            date_default_timezone_set("Asia/Kuala_Lumpur"); //Set the timezone to Kuala Lumpur/ Malaysia/ Asia
+            $datetime = new DateTime(); //to get the current time
+            $dt= $datetime->format('Y-m-d\TH:i:s'); //to chg the format of the datetime
+            $dateTime = date("Y-m-d H:i:s", strtotime($dt)); //to chg the datetime to string
+
+            $sql = "INSERT INTO comment (id, `user_id`, post_id, content, created_at) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sssss", $comment_id, $user_id, $post_id, $comment, $dateTime);
+
+            if($stmt->execute()) {
+                echo "Comment successfully posted!";    
+            }
+            else{
+                echo $conn->error; //error message will prompt
+            }
+            $stmt->close();
+            $conn->close();
+        }
+    }
 ?>

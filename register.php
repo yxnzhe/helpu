@@ -31,13 +31,29 @@
             </form>
             <?php
                 if(isset($_POST["register"])){
-                    $name = $_POST["name"];
-                    $email = $_POST["email"];
-                    $password = $_POST["password"];
-                    $confirmPass = $_POST["conPassword"];
-                    register($name, $email, $password, $confirmPass);
+                    if(!isset($_POST["name"]) || !isset($_POST["email"]) || !isset($_POST["password"]) || !isset($_POST["conPassword"])) { //if email or password is empty
+                        echo "<span style='color: red; font-size: 20px;'>Invalid Form Submission</span>";//error message will be prompted
+                    }
+                    else if (!checkEmail($_POST["email"])) {}
+                    else {
+                        $name = $_POST["name"];
+                        $email = $_POST["email"];
+                        $password = $_POST["password"];
+                        $confirmPass = $_POST["conPassword"];
+                        register($name, $email, $password, $confirmPass);
+                    }
                 }
             ?>
+        </div>
+        <div class="row justify-content-center">
+			<div class="col-2"></div>
+			<div class="col-8 text-center">
+				<span style="font-size:17px;">Already have an account?</span>
+				<a class="" href="login.php">
+                    <span style="font-size:17px">Login</span>
+                </a>
+			</div>
+			<div class="col-2"></div>
         </div>
     </div>
     <?php 

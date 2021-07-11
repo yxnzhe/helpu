@@ -13,15 +13,36 @@
         return $conn;
     }
 
+    function checkEmail($email) {
+        $conn = connectDb();
+        $sql = "SELECT count(*) FROM `user` where email = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $email);
+
+        if($stmt->execute()) {
+            $stmt->bind_result($count);
+            $stmt->fetch();
+            
+            if($count > 0) {
+                $uniqEmail = false;
+                echo "<span style='color: red; font-size: 20px;'>Email Address Already Exist!</span>";
+            }
+            else {
+                $uniqEmail = true;
+            }
+        }
+        return $uniqEmail;
+    }
+
     function register($name, $email, $password, $confirmPassword) { //function to allow user to register to the website
         if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
-            echo "All field is Mandatory!";
+            echo "<span style='color: red; font-size: 20px;'>All field is Mandatory!</span>";
         }
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
-            echo "Invalid email format!";
+            echo "<span style='color: red; font-size: 20px;'>Invalid email format!</span>";
         }
         else if($password != $confirmPassword){ //Check whether the password and confirm password is match or not
-            echo "Password does not match!";
+            echo "<span style='color: red; font-size: 20px;'>Password does not match!</span>";
         }
         else { //If all field is with value and the email format is correct, then will create the user in our database
             $conn = connectDb();
@@ -33,10 +54,12 @@
             $stmt->bind_param("ssss", $userId, $name, $email, $password);
 
             if($stmt->execute()) {
-                echo "Account created successfully!";    
+                $_SESSION["userId"] = $userId;
+                $_SESSION["isLogin"] = true;
+                echo "<script> location.href='index.php'; </script>";    
             }
             else{
-                echo "Error: ".$sql."<br>".$conn->error;
+                echo "<span style='color: red; font-size: 20px;'>Error: ".$sql."<br>".$conn->error."</span>";
             }
 
             $stmt->close();
@@ -45,11 +68,12 @@
     }
 
     function login($email, $password) { //function to allow user to login to the website
+        $errorMsg = "";
         if($email == "" || $password == "") { //to validate whether email or password is empty
-            echo "All field is Mandatory!"; //if email or password is empty, error message will prompt
+            echo "<span style='color: red; font-size: 20px;'>All field is Mandatory!</span>";//if email or password is empty, error message will prompt
         }
         else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //to validate whether user has entered a valid email format
-            echo "Invalid email format!"; //if email format is invalid, this error message will prompt
+            echo "<span style='color: red; font-size: 20px;'>Invalid email format!</span>";//if email format is invalid, this error message will prompt
         }
         else { //if email and password is entered as required
             $conn = connectDb(); //connect to databsae
@@ -63,17 +87,19 @@
                 if($stmt->fetch()) { //to fetch
                     if(password_verify($password, $pass)) { //to verify whether the password entered by user is equal to the password in the database
                         $_SESSION["userId"] = $id; //if password is entered correctly, $_SESSION["userId] will set to the user's id
+                        $_SESSION["isLogin"] = true;
+                        echo "<script> location.href='index.php'; </script>";
                     }
                     else { //if password is invalid
-                        echo "Login Failed. Invalid Email/Password."; //error message will prompt
+                        echo "<span style='color: red; font-size: 20px;'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
                     }
                 }
                 else { //if cant fetch
-                    echo "Login Failed. Invalid Email/Password."; //error message will prompt
+                    echo "<span style='color: red; font-size: 20px;'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
                 }
             }
             else { //if $stmt cant execute
-                echo $conn->error; //error message will prompt
+                echo "<span style='color: red; font-size: 20px;'>".$conn->error."</span>";//error message will prompt
             }
             $stmt->close();
             $conn->close();
@@ -103,7 +129,7 @@
             $stmt->bind_param("ssss", $id, $userId, $content, $newDateTime);
             
             if($stmt->execute()) { //to execute the statement
-                echo 'too be decided line97 of function.php'; //alert tag will be present if the statement is successfully submitted
+                echo 'too be decided'; //alert tag will be present if the statement is successfully submitted
             }
             else {
                 echo "Failed to create Post. Reason: ".$conn->error; //error message will be present if failed to execute the statement

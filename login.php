@@ -27,10 +27,10 @@
             <?php
                 if(isset($_POST["login"])) { //if user clicks login button
                     if(!isset($_POST["email"]) || !isset($_POST["password"])) { //if email or password is empty
-                      $errorMsg = "Invalid Form Submission"; //error message will be prompted
+					  echo "<span style='color: red; font-size: 20px;'>Invalid Form Submission</span>";//error message will be prompted
                     }
                     else { //if email and password is present                        
-                      login($_POST["email"], $_POST["password"]); //to login the user based on the email, password and ischeckout, errorMsg will not be empty if error occurs at the function
+						login($_POST["email"], $_POST["password"]); //to login the user based on the email, password and ischeckout, errorMsg will not be empty if error occurs at the function
                     }
                 }
             ?>
@@ -39,11 +39,9 @@
 			<div class="col-2"></div>
 			<div class="col-8 text-center">
 				<span style="font-size:17px;">If you don't have an account</span>
-				
 				<a class="" href="register.php">
-                    <span style="font-size:17px">Create an Account</span> <!--History at navbar to direct to history.php-->
+                    <span style="font-size:17px">Create an Account</span>
                 </a>
-				
 			</div>
 			<div class="col-2"></div>
         </div>

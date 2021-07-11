@@ -13,7 +13,7 @@
         return $conn;
     }
 
-    function register($name, $email, $password) { //Register function
+    function register($name, $email, $password) { //function to allow user to register to the website
         if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
             echo "All field is Mandatory!";
         }
@@ -76,7 +76,7 @@
         }
     }
 
-    function addComment($post_id, $comment){
+    function addComment($post_id, $comment){ //function to allow user to post their comments
         if($comment == ""){ //If comment is submitted without any values
             echo "Your cannot post an empty comment.";
         }
@@ -106,5 +106,22 @@
             $stmt->close();
             $conn->close();
         }
+    }
+
+    function deleteComment($comment_id){ //function to allow user to delete their comment
+        $conn = connectDb();
+
+        $sql = "DELETE FROM comment WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $comment_id);
+
+        if($stmt->execute()) {
+            echo "Comment successfully deleted!";    
+        }
+        else{
+            echo $conn->error; //error message will prompt
+        }
+        $stmt->close();
+        $conn->close();
     }
 ?>

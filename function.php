@@ -13,7 +13,7 @@
         return $conn;
     }
 
-    function register($name, $email, $password) { //Register function
+    function register($name, $email, $password) { //function to allow user to register to the website
         if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
             echo "All field is Mandatory!";
         }
@@ -76,22 +76,27 @@
         }
     }
 
-    function post($user_id, $content) {
+    function post($content) {
         if($content == "") {
             echo "Content is empty";
         }
+        else if (strlen($content) > 255){
+            echo "Your content exceeded 255 characters.";
+        }
         else {
             $id = uniqid();
+            $userId = $_SESSION["userId"];
+
             date_default_timezone_set("Asia/Kuala_Lumpur"); //to set the timezone to KL
             $datetime = new DateTime(); //to get the current time
             $dt= $datetime->format('Y-m-d\TH:i:s'); //to chg the format of the datetime
             $newDateTime = date("Y-m-d H:i:s", strtotime($dt)); //to chg the datetime to string
 
             $conn = connectDb();
-            $sql = "INSERT INTO `post` (id, user_id, content, created_at) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO `post` (id, `user_id`, content, created_at) VALUES (?, ?, ?, ?)";
 
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssss", $id, $user_id, $content, $newDateTime);
+            $stmt->bind_param("ssss", $id, $userId, $content, $newDateTime);
             
             if($stmt->execute()) { //to execute the statement
                 echo 'too be decided line97 of function.php'; //alert tag will be present if the statement is successfully submitted
@@ -99,9 +104,86 @@
             else {
                 echo "Failed to create Post. Reason: ".$conn->error; //error message will be present if failed to execute the statement
             }
-
             $stmt->close();
             $conn->close();
         }
+    }
+
+    function deletePost($postId) {
+        $conn = connectDb();
+
+        $sql = "DELETE FROM comment WHERE post_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $postId);
+
+        if($stmt->execute()) {
+            $stmt->close();
+            echo "Comment successfully deleted!";
+
+            $sql = "DELETE FROM post WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $postId);
+
+            if($stmt->execute()) {
+                echo "Post successfully deleted!";
+            }
+            else {
+                echo $conn->error;
+            }
+        }
+        else {
+            echo $conn->error; //error message will prompt
+        }
+        $stmt->close();
+        $conn->close();
+    }
+
+    function addComment($post_id, $comment){ //function to allow user to post their comments
+        if($comment == ""){ //If comment is submitted without any values
+            echo "Your cannot post an empty comment.";
+        }
+        else if(strlen($comment) > 150){ //If the comment exceeded 150 characters
+            echo "Your comment exceeded 150 characters.";
+        }
+        else{
+            $conn = connectDb(); //connect to databsae
+            $comment_id = uniqid(); //Auto generate a string + number comment id
+            $user_id = $_SESSION["userId"]; //Get user_id from session that was set when user login
+
+            date_default_timezone_set("Asia/Kuala_Lumpur"); //Set the timezone to Kuala Lumpur/ Malaysia/ Asia
+            $datetime = new DateTime(); //to get the current time
+            $dt= $datetime->format('Y-m-d\TH:i:s'); //to chg the format of the datetime
+            $dateTime = date("Y-m-d H:i:s", strtotime($dt)); //to chg the datetime to string
+
+            $sql = "INSERT INTO comment (id, `user_id`, post_id, content, created_at) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sssss", $comment_id, $user_id, $post_id, $comment, $dateTime);
+
+            if($stmt->execute()) {
+                echo "Comment successfully posted!";    
+            }
+            else{
+                echo $conn->error; //error message will prompt
+            }
+            $stmt->close();
+            $conn->close();
+        }
+    }
+
+    function deleteComment($comment_id){ //function to allow user to delete their comment
+        $conn = connectDb();
+
+        $sql = "DELETE FROM comment WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $comment_id);
+
+        if($stmt->execute()) {
+            echo "Comment successfully deleted!";    
+        }
+        else{
+            echo $conn->error; //error message will prompt
+        }
+        $stmt->close();
+        $conn->close();
     }
 ?>

@@ -65,11 +65,11 @@
                         $_SESSION["userId"] = $id; //if password is entered correctly, $_SESSION["userId] will set to the user's id
                     }
                     else { //if password is invalid
-                        echo "Login Failed. Invalid Username/Password."; //error message will prompt
+                        echo "Login Failed. Invalid Email/Password."; //error message will prompt
                     }
                 }
                 else { //if cant fetch
-                    echo "Login Failed. Invalid Username/Password."; //error message will prompt
+                    echo "Login Failed. Invalid Email/Password."; //error message will prompt
                 }
             }
             else { //if $stmt cant execute

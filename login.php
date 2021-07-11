@@ -1,7 +1,10 @@
 <html>
-
+<head>
+  <?php
+    require_once "navbar.php";
+  ?>
+</head>
 <body>
-
   <div class="container-fluid">
     <h3>Login Form</h3>
     <!-- this section is the log in form  -->

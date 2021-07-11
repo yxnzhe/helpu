@@ -1,27 +1,3 @@
-<?php
-require_once 'function.php'; 
-$conn = connectDb(); 
-
-if (isset($_POST['submit'])) { 
-  $email = stripslashes($_REQUEST['email']);
-  //the stripslahes will remove all the quotation mark to prevent error with the database, since the data are input using html.
-  $email = mysqli_real_escape_string($conn, $email);
-  // the mysqli_real_escape_string is to prevent an error where special characters string could be an error using in as a SQL statement  
-  $password = stripslashes($_REQUEST['password']);
-  $password = mysqli_real_escape_string($conn, $password);
-
-  $query = "SELECT * FROM user WHERE email='$email' AND password ='$password'"; 
-  $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
-  $rows = mysqli_num_rows($result); 
-
-  if ($rows == 1) { 
-    $_SESSION['login'] = $email;
-    header("Location: index.php"); 
-  } else { 
-    echo "<br/><div style='background-color:#e6505a;'><h5><center>Incorrect Username/ Password</center></h5></div><br/>";
-  }
-}
-?>
 <html>
 
 <body>

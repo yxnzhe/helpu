@@ -18,12 +18,12 @@
         
                 <a class="navbar-brand" href="index.php">Index</a>
                 <?php
-                session_start();
-                if (!isset($_SESSION['login']) || empty($_SESSION['login'])) {
-                    echo "<a class='navbar-brand'href='index.php?p=login'>Log in </a>";
-                } else {
-                    echo "<a class='navbar-brand'href='logout.php'>Log Out</a>";
-                }
+                    session_start();
+                    if (!isset($_SESSION['login']) || empty($_SESSION['login'])) {
+                        echo "<a class='navbar-brand'href='index.php?p=login'>Log in </a>";
+                    } else {
+                        echo "<a class='navbar-brand'href='logout.php'>Log Out</a>";
+                    }
                 ?>
         </nav>
     </div>

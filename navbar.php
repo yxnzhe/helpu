@@ -8,6 +8,7 @@
 
 <body>
     <?php
+        session_start();
         require_once "function.php";
     ?>
     <!-- <a class="navbar-brand" href="index.php?p=1">Product</a> -->

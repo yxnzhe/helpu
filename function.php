@@ -138,7 +138,7 @@
         $conn->close();
     }
 
-    function addComment($post_id, $comment){ //function to allow user to post their comments
+    function addComment($postId, $comment){ //function to allow user to post their comments
         if($comment == ""){ //If comment is submitted without any values
             echo "Your cannot post an empty comment.";
         }
@@ -147,7 +147,7 @@
         }
         else{
             $conn = connectDb(); //connect to databsae
-            $comment_id = uniqid(); //Auto generate a string + number comment id
+            $commentId = uniqid(); //Auto generate a string + number comment id
             $user_id = $_SESSION["userId"]; //Get user_id from session that was set when user login
 
             date_default_timezone_set("Asia/Kuala_Lumpur"); //Set the timezone to Kuala Lumpur/ Malaysia/ Asia
@@ -157,7 +157,7 @@
 
             $sql = "INSERT INTO comment (id, `user_id`, post_id, content, created_at) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sssss", $comment_id, $user_id, $post_id, $comment, $dateTime);
+            $stmt->bind_param("sssss", $commentId, $userId, $postId, $comment, $dateTime);
 
             if($stmt->execute()) {
                 echo "Comment successfully posted!";    
@@ -170,12 +170,12 @@
         }
     }
 
-    function deleteComment($comment_id){ //function to allow user to delete their comment
+    function deleteComment($commentId){ //function to allow user to delete their comment
         $conn = connectDb();
 
         $sql = "DELETE FROM comment WHERE id = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $comment_id);
+        $stmt->bind_param("s", $commentId);
 
         if($stmt->execute()) {
             echo "Comment successfully deleted!";    

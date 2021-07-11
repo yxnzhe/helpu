@@ -20,7 +20,7 @@
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
             echo "Invalid email format!";
         }
-        else if($password != $confirmPassword){
+        else if($password != $confirmPassword){ //Check whether the password and confirm password is match or not
             echo "Password does not match!";
         }
         else { //If all field is with value and the email format is correct, then will create the user in our database

@@ -10,6 +10,5 @@
     <?php
         require_once "function.php";
     ?>
-    ihih
-
+    <!-- <a class="navbar-brand" href="index.php?p=1">Product</a> -->
 </body>

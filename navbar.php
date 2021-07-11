@@ -8,8 +8,16 @@
 
 <body>
     <?php
-        session_start();
-        require_once "function.php";
+    session_start();
+    require_once "function.php";
     ?>
-    <!-- <a class="navbar-brand" href="index.php?p=1">Product</a> -->
+    <div class="container-fluid">
+    <nav class="navbar navbar-light" style="background-color: #a2c3fa;">
+        <img src="imgs/helpu.png" alt="Helpu Student Website Logo" width="88" height="88" style="float:left;">
+        <h1 style="text-align: center; padding: 25px">HELPU Student Website</h1>
+   
+       <a class="navbar-brand" class="text-right" href="index.php?p=1">Log in</a>
+        </nav>
+    </div>
+  
 </body>

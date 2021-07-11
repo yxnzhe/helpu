@@ -19,6 +19,10 @@
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Password..." required/> <!--Where user input their password-->
             </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" name="conPassword" class="form-control" placeholder="Confirm Password..." required/> <!--Where user input their password-->
+            </div>
             <input type="submit" name="register" class="btn btn-primary" value="Register" /> <!--Login Button-->
         </form>
         <?php
@@ -26,7 +30,8 @@
                 $name = $_POST["name"];
                 $email = $_POST["email"];
                 $password = $_POST["password"];
-                register($name, $email, $password);
+                $confirmPass = $_POST["conPassword"];
+                register($name, $email, $password, $confirmPass);
             }
         ?>
     </div>

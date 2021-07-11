@@ -13,12 +13,15 @@
         return $conn;
     }
 
-    function register($name, $email, $password) { //function to allow user to register to the website
+    function register($name, $email, $password, $confirmPassword) { //function to allow user to register to the website
         if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
             echo "All field is Mandatory!";
         }
-        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
+        else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
             echo "Invalid email format!";
+        }
+        else if($password != $confirmPassword){
+            echo "Password does not match!";
         }
         else { //If all field is with value and the email format is correct, then will create the user in our database
             $conn = connectDb();

@@ -8,6 +8,15 @@
             $postContent = $_POST["post_content"];
             post($postContent);
         }
+
+        if(isset($_POST["deletePost"])){
+            if(postDeletePermission($_POST["postId"])) {
+                deletePost($_POST["postId"]);
+            }
+            else {
+                echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
+            }
+        }
     ?>
 </head>
 
@@ -47,7 +56,7 @@
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-danger">Delete post</button>
+                            <button type="button" class="btn btn-danger" name="deletePost">Delete post</button>
                         </form>
                     </div>
                 <?php

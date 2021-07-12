@@ -35,8 +35,13 @@
                                 <textarea class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
                             </div>
                             <div class="col-2 p-0 col-lg-1">
-                                <a href="post_content.php" class="btn btn-primary">Post</a>
+                               <input type=submit name="post_button" class="btn btn-primary" placeholder="Post" />
                             </div>
+                            <?php
+                            if(isset($_POST["post_button"])){
+                                addComment($postId, $comment);
+                            }
+                            ?>
                         </div>
 
                         <button type="button" class="btn btn-danger">Delete post</button>
@@ -45,9 +50,7 @@
             </div>
         </div>
         <div class="col-2"> </div>
-
     </div>
-
 
 </body>
 <?php include 'footer.php'; ?>

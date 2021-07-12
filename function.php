@@ -190,7 +190,8 @@
             $stmt->bind_param("sssss", $commentId, $userId, $postId, $comment, $dateTime);
 
             if($stmt->execute()) {
-                echo "Comment successfully posted!";    
+                echo "Comment successfully posted!";
+                echo "<script> location.href='post_content.php'; </script>";    
             }
             else{
                 echo $conn->error; //error message will prompt

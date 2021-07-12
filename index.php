@@ -4,11 +4,12 @@
     <?php
     require_once "navbar.php";
 
-        if(isset($_POST["postPost"])){
+        if(isset($_POST["postPost"])) {
             $postContent = $_POST["post_content"];
             post($postContent);
         }
-        if(isset($_POST["deletePost"])){
+
+        if(isset($_POST["deletePost"])) {
             if(postDeletePermission($_POST["post_id"])) {
                 deletePost($_POST["post_id"]);
             }
@@ -16,6 +17,7 @@
                 echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
             }
         }
+
         if (isset($_POST["post_button"])) {
             $postId = $_POST["post_id"];
             $comment = $_POST["comment"];
@@ -45,37 +47,53 @@
             <div class="card">
                 <h5 class="card-header">Posts</h5>
                 <?php
+                    $getAllPost = getAllPosts();
 
-                $getAllPost = getAllPosts();
-                foreach ($getAllPost as $i){
+                    if(count($getAllPost) > 0) {
+                        foreach ($getAllPost as $i) {
                 ?>
-                    <div class="card-body mb-1">
-                        <h5 class="card-title"><?php echo $i["name"]; ?></h5>
-                        <p class="card-text"><?php echo $i["content"];?></p>
-                        <form method="POST" class="mb-0">
-                            <div class="mb-3 row">
-                                <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
-                                    <textarea class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
-                                </div>
-                                <div class="col-2 p-0 col-lg-1">
-                                    <input type=submit name="post_button" class="btn btn-primary" value="Post" />
-                                </div>
-                                <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
-                            </div>
-                        </form>
-                        <?php if(isset($_SESSION["userId"])){ 
-                            if($i["user_id"] == $_SESSION["userId"]){ ?>
-                                <form method="POST">
-                                    <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
-                                    <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post">
+                            <div class="card-body mb-1">
+                                <h5 class="card-title"><?php echo $i["name"]; ?></h5>
+                                <p class="card-text"><?php echo $i["content"];?></p>
+                                <form method="POST" class="mb-0">
+                                    <div class="mb-3 row">
+                                        <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
+                                            <textarea class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
+                                        </div>
+                                        <div class="col-2 p-0 col-lg-1">
+                                            <input type=submit name="post_button" class="btn btn-primary" value="Post" />
+                                        </div>
+                                        <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
+                                    </div>
                                 </form>
-                            <?php 
-                            } 
-                        }?>
-                    </div>
-                    <hr style="border-top: 25px solid #f3f3f3; margin: 0">
+                                <?php 
+                                    if(isset($_SESSION["userId"])) { 
+                                        if($i["user_id"] == $_SESSION["userId"]) { ?>
+                                            <form method="POST">
+                                                <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
+                                                <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post">
+                                            </form>
+                                        <?php 
+                                        } 
+                                    }
+                                ?>
+                            </div>
+                            <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                 <?php
-                }
+                        }
+                    }
+                    else {
+                ?>  
+                        <div class="row justify-content-center">
+                            <div class="col-2"> </div>
+                            <div class="col-8 text-center my-5"> 
+                                <span class="font-weight-bold" style="font-size: 25px">There is no Post</span><br />
+                                <span class="font-weight-bold" style="font-size: 25px">Post your first post now</span>
+                            </div>
+                            <div class="col-2"> </div>
+                        </div>
+                <?php
+                    }
                 ?>
             </div>
         </div>

@@ -2,7 +2,7 @@
     function connectDb() { //Connect to database
         $servername = "localhost";
         $username = "root";
-        $password = "mlxh011001";
+        $password = "";
         $db = "helpu";
 
         $conn = mysqli_connect($servername, $username, $password, $db);
@@ -129,10 +129,10 @@
             $stmt->bind_param("ssss", $id, $userId, $content, $newDateTime);
             
             if($stmt->execute()) { //to execute the statement
-                echo 'too be decided'; //alert tag will be present if the statement is successfully submitted
+                echo "<span style='color: green; font-size: 18px;'>Post successfully posted!</span>"; //alert tag will be present if the statement is successfully submitted
             }
             else {
-                echo "Failed to create Post. Reason: ".$conn->error; //error message will be present if failed to execute the statement
+                echo "<span style='color: red; font-size: 18px;'>Failed to create Post. Reason: ".$conn->error."</span>"; //error message will be present if failed to execute the statement
             }
             $stmt->close();
             $conn->close();
@@ -168,6 +168,24 @@
         $conn->close();
     }
 
+    function getAllPosts(){
+        $conn = connectDb();
+        $postArr = array();
+
+        $sql = "SELECT p.id, u.name, p.content FROM post p
+                INNER JOIN `user` u ON u.id = p.user_id";
+
+        if($result = $conn->query($sql)){
+            while($row = $result->fetch_assoc()){
+                array_push($postArr, $row); //Return all products in array
+            }
+        }else{
+            echo $conn->error; //error message will prompt
+        }
+        
+        return $postArr;
+    }
+
     function addComment($postId, $comment){ //function to allow user to post their comments
         if($comment == ""){ //If comment is submitted without any values
             echo "Your cannot post an empty comment.";
@@ -178,7 +196,7 @@
         else{
             $conn = connectDb(); //connect to databsae
             $commentId = md5(microtime()); //Auto generate a string + number comment id
-            $user_id = $_SESSION["userId"]; //Get user_id from session that was set when user login
+            $userId = $_SESSION["userId"]; //Get user_id from session that was set when user login
 
             date_default_timezone_set("Asia/Kuala_Lumpur"); //Set the timezone to Kuala Lumpur/ Malaysia/ Asia
             $datetime = new DateTime(); //to get the current time

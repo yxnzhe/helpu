@@ -1,28 +1,27 @@
 <html>
-
+<script>
+    function countCharPost(val) {
+        var len = val.value.length;
+        if (len >= 255) {
+            val.value = val.value.substring(0, 255);
+        } 
+        else {
+            $('#charNumPost').text(255 - len);
+        }
+    };
+    function countCharComment(val) {
+        var len = val.value.length;
+        if (len >= 155) {
+            val.value = val.value.substring(0, 155);
+        } 
+        else {
+            $('#charNumComment').text(155 - len);
+        }
+    };
+</script>
 <head>
     <?php
-    require_once "navbar.php";
-
-        if(isset($_POST["postPost"])) {
-            $postContent = $_POST["post_content"];
-            post($postContent);
-        }
-
-        if(isset($_POST["deletePost"])) {
-            if(postDeletePermission($_POST["post_id"])) {
-                deletePost($_POST["post_id"]);
-            }
-            else {
-                echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
-            }
-        }
-
-        if (isset($_POST["post_button"])) {
-            $postId = $_POST["post_id"];
-            $comment = $_POST["comment"];
-            addComment($postId, $comment);
-        }
+        require_once "navbar.php";
     ?>
 </head>
 
@@ -38,14 +37,45 @@
                         <div class="card-body">
                             <form method="POST" class="mb-0">
                                 <div class="mb-3">
-                                    <textarea class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
+                                    <textarea onkeyup="countCharPost(this)" class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
+                                    <div class="pt-1 text-right" id="charNumPost"></div>
                                 </div>
                                 <input type="submit" name="postPost" class="btn btn-primary" value="Post">
                             </form>
+                            <?php
+                                if(isset($_POST["postPost"])) {
+                                    if(empty($_POST["post_content"])) {
+                                        echo "<span style='color: red; font-size: 20px;'>Content is Empty</span>";
+                                    }
+                                    else {
+                                        $postContent = $_POST["post_content"];
+                                        post($postContent);
+                                    }
+                                }
+                            ?>
                         </div>
                     </div>
             <?php 
-                } 
+                }
+                if (isset($_POST["post_button"])) {
+                    if(empty($_POST["comment"])) {
+                        echo "<span style='color: red; font-size: 20px;'>Comment is Empty</span>";
+                    }
+                    else {
+                        $postId = $_POST["post_id"];
+                        $comment = $_POST["comment"];
+                        addComment($postId, $comment);
+                    }
+                }
+                
+                if(isset($_POST["deletePost"])) {
+                    if(postDeletePermission($_POST["post_id"])) {
+                        deletePost($_POST["post_id"]);
+                    }
+                    else {
+                        echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
+                    }
+                }
             ?>
             <br />
             <div class="card">
@@ -62,7 +92,8 @@
                                 <form method="POST" class="mb-0">
                                     <div class="mb-3 row">
                                         <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
-                                            <textarea class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
+                                            <textarea onkeyup="countCharComment(this)" class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
+                                            <div class="pt-1 text-right" id="charNumComment"></div>
                                         </div>
                                         <div class="col-2 p-0 col-lg-1">
                                             <input type=submit name="post_button" class="btn btn-primary" value="Post" />

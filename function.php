@@ -111,10 +111,10 @@
 
     function post($content) {
         if($content == "") {
-            echo "Content is empty";
+            echo "<span style='color: red; font-size: 20px;'>Content is empty</span>";
         }
         else if (strlen($content) > 255){
-            echo "Your content exceeded 255 characters.";
+            echo "<span style='color: red; font-size: 20px;'>Your content exceeded 255 characters.</span>";
         }
         else {
             $id = md5(microtime());;
@@ -237,10 +237,10 @@
 
     function addComment($postId, $comment){ //function to allow user to post their comments
         if($comment == ""){ //If comment is submitted without any values
-            echo "Your cannot post an empty comment.";
+            echo "<span style='color: red; font-size: 20px;'>Comment is empty.</span>";
         }
         else if(strlen($comment) > 150){ //If the comment exceeded 150 characters
-            echo "Your comment exceeded 150 characters.";
+            echo "<span style='color: red; font-size: 20px;'>Comment cannot exceed 150 characters.</span>";
         }
         else{
             $conn = connectDb(); //connect to databsae

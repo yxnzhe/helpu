@@ -51,14 +51,14 @@
                             ?>
                                     <li class="nav-item mx-1 pt-1">
                                         <a class="nav-link" class="text-right" href="login.php">
-                                            <img src="imgs/signup_icon.png" alt="SignUp" width="23px" height="23px">
+                                            <img src="imgs/login_icon.png" alt="Login" width="23px" height="23px">
                                             <span style="font-size: 18px;">Login</span>
                                         </a>
                                     </li>
 
                                     <li class="nav-item mx-1 pt-1">
                                         <a class="nav-link" class="text-right" href="register.php">
-                                            <img src="imgs/login_icon.png" alt="Login" width="23px" height="23px">
+                                            <img src="imgs/signup_icon.png" alt="SignUp" width="23px" height="23px">
                                             <span style="font-size: 18px;">Sign Up</span>
                                         </a>
                                     </li>
@@ -68,9 +68,10 @@
                                 else { //if user is logged in
                             ?>
                                 <form method="POST">
-                                    <li class="nav-item mx-1 pt-1">
+                                    <li class="nav-item pt-1">
                                         <a class="nav-link">
-                                            <input type="submit" name="logout" class="bg-navbar" style="border-width: 0px; font-size:21px" value="Logout" /> <!--Logout at navbar to logout the user-->
+                                        <img src="imgs/logout_icon.png" alt="Login" width="23px" height="23px">
+                                            <input type="submit" name="logout" style="background-color: #a2c3fa; border-width: 0px; font-size:21px" style="border-width: 0px; font-size:21px" value="Logout" /> <!--Logout at navbar to logout the user-->
                                         </a>
                                     </li>
                                 </form>

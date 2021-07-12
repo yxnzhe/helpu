@@ -44,31 +44,37 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav float-right ml-auto">
-                        <li class="nav-item mx-1 pt-1">
                             <?php
                                 if(!$_SESSION["isLogin"]) { //if user is not logged in
                             ?>
-                                <a class="nav-link" class="text-right" href="login.php">
-                                    <img src="imgs/signup_icon.png" alt="SignUp" width="23px" height="23px">
-                                    <span style="font-size: 18px;">Login</span>
-                                </a>
-                                <a class="nav-link" class="text-right" href="register.php">
-                                    <img src="imgs/login_icon.png" alt="Login" width="23px" height="23px">
-                                    <span style="font-size: 18px;">Sign Up</span>
-                                </a>
+                                    <li class="nav-item mx-1 pt-1">
+                                        <a class="nav-link" class="text-right" href="login.php">
+                                            <img src="imgs/signup_icon.png" alt="SignUp" width="23px" height="23px">
+                                            <span style="font-size: 18px;">Login</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item mx-1 pt-1">
+                                        <a class="nav-link" class="text-right" href="register.php">
+                                            <img src="imgs/login_icon.png" alt="Login" width="23px" height="23px">
+                                            <span style="font-size: 18px;">Sign Up</span>
+                                        </a>
+                                    </li>
+                                
                             <?php
                                 }
                                 else { //if user is logged in
                             ?>
                                 <form method="POST">
-                                    <a class="nav-link">
-                                        <input type="submit" name="logout" class="bg-navbar" style="border-width: 0px; font-size:21px" value="Logout" /> <!--Logout at navbar to logout the user-->
-                                    </a>
+                                    <li class="nav-item mx-1 pt-1">
+                                        <a class="nav-link">
+                                            <input type="submit" name="logout" class="bg-navbar" style="border-width: 0px; font-size:21px" value="Logout" /> <!--Logout at navbar to logout the user-->
+                                        </a>
+                                    </li>
                                 </form>
                             <?php
                                 }
                             ?>
-                        </li>
                     </ul>
                 </div>
             </div>

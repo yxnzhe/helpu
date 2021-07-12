@@ -40,21 +40,23 @@
             <br />
             <div class="card">
                 <h5 class="card-header">Posts</h5>
-                <?php
-
-                ?>
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <form method="POST" class="mb-0">
-                            <div class="mb-3 row">
-                                <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
-                                    <textarea class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
-                                </div>
-                                <div class="col-2 p-0 col-lg-1">
-                                    <a href="post_content.php" class="btn btn-primary">Post</a>
-                                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <form method="POST" class="mb-0">
+                        <div class="mb-3 row">
+                            <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
+                                <textarea class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
                             </div>
+                            <div class="col-2 p-0 col-lg-1">
+                               <input type=submit name="post_button" class="btn btn-primary" placeholder="Post" />
+                            </div>
+                            <?php
+                            if(isset($_POST["post_button"])){
+                                addComment($postId, $comment);
+                            }
+                            ?>
+                        </div>
 
                             <button type="button" class="btn btn-danger" name="deletePost">Delete post</button>
                         </form>
@@ -65,9 +67,7 @@
             </div>
         </div>
         <div class="col-2"> </div>
-
     </div>
-
 
 </body>
 <?php include 'footer.php'; ?>

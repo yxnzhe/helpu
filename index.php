@@ -57,6 +57,20 @@
                     </div>
             <?php 
                 }
+                else {
+            ?>
+                    <div class="row">
+                        <div class="col-2"> </div>
+                        <div class="col-8 text-center mt-5"> 
+                            <a href="login.php">
+                                <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up </span>
+                            </a>
+                            <span class="font-weight-bold" style="font-size: 25px">now to post</span>
+                        </div>
+                        <div class="col-2"> </div>
+                    </div>
+            <?php
+                }
                 if (isset($_POST["post_button"])) {
                     if(empty($_POST["comment"])) {
                         echo "<span style='color: red; font-size: 20px;'>Comment is Empty</span>";

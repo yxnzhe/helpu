@@ -10,8 +10,8 @@
         }
 
         if(isset($_POST["deletePost"])){
-            if(postDeletePermission($_POST["postId"])) {
-                deletePost($_POST["postId"]);
+            if(postDeletePermission($_POST["post_id"])) {
+                deletePost($_POST["post_id"]);
             }
             else {
                 echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
@@ -56,7 +56,7 @@
                                 <div class="col-2 p-0 col-lg-1">
                                     <input type=submit name="post_button" class="btn btn-primary" value="Post" />
                                 </div>
-                                <input type="hidden" value= <?php echo $i["id"]  ?> name="post_id" />
+                                <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
                                 <?php
                                 if (isset($_POST["post_button"])) {
                                     $postId = $_POST["post_id"];
@@ -65,11 +65,13 @@
                                 }
                                 ?>
                             </div>
-
-                            <button type="button" class="btn btn-danger" name="deletePost">Delete post</button>
+                        </form>
+                        <form method="POST">
+                            <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
+                            <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post">
                         </form>
                     </div>
-                    <br />
+                    <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                 <?php
                 }
                 ?>

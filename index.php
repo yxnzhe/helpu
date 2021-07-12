@@ -2,27 +2,32 @@
 
 <head>
     <?php
-    require_once "navbar.php";
+        require_once "navbar.php";
+
+        if(isset($_POST["postPost"])){
+            $postContent = $_POST["post_content"];
+            post($postContent);
+        }
     ?>
 </head>
 
 <body style="background-color: #f3f3f3">
-    <div class="row justify-content-center" style="margin-bottom: 4rem!important;">
+    <div class="row justify-content-center pt-2" style="margin-bottom: 4rem!important;">
         <div class="col-2"> </div>
-        <div class="col-8">
-            <div class="card">
-                <h5 class="card-header">Create Post</h5>
-                <div class="card-body">
-                    <form method="POST" class="mb-0">
-                        <div class="mb-3">
-                            <textarea class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
-                        </div>
-                        <a href="#" class="btn btn-primary">Post</a>
-                    </form>
-
+            <div class="col-8">
+            <?php if(isset($_SESSION["userId"])){ ?>
+                <div class="card">
+                    <h5 class="card-header">Create Post</h5>
+                    <div class="card-body">
+                        <form method="POST" class="mb-0">
+                            <div class="mb-3">
+                                <textarea class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
+                            </div>
+                            <input type="submit" name="postPost" class="btn btn-primary" value="Post">
+                        </form>
+                    </div>
                 </div>
-            </div>
-
+            <?php }?>
             <br />
             <div class="card">
                 <h5 class="card-header">Posts</h5>
@@ -44,9 +49,12 @@
                             ?>
                         </div>
 
-                        <button type="button" class="btn btn-danger">Delete post</button>
-                    </form>
-                </div>
+                            <button type="button" class="btn btn-danger">Delete post</button>
+                        </form>
+                    </div>
+                <?php
+
+                ?>
             </div>
         </div>
         <div class="col-2"> </div>

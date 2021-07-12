@@ -172,12 +172,12 @@
         $conn = connectDb();
         $postArr = array();
 
-        $sql = "SELECT p.id, u.name, p.content FROM post p
+        $sql = "SELECT p.id, u.id, u.name, p.content FROM post p
                 INNER JOIN `user` u ON u.id = p.user_id";
 
         if($result = $conn->query($sql)){
             while($row = $result->fetch_assoc()){
-                array_push($postArr, $row); //Return all products in array
+                array_push($postArr, $row); //Return all post in array
             }
         }else{
             echo $conn->error; //error message will prompt

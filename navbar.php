@@ -21,7 +21,7 @@
         header("Location: index.php"); //user will be redirected to index.php
     }
 ?>
-    <div class="container-fluid">
+    <div class="container-fluid" style="padding: 0px">
         <nav class="navbar navbar-light" style="background-color: #a2c3fa;">
             <img src="imgs/helpu.png" alt="Helpu Student Website Logo" width="88" height="88" style="float:left;">
             <h1 style="text-align: center; padding: 25px">HELPU Student Website</h1>

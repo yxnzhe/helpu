@@ -190,6 +190,27 @@
         return $postArr;
     }
 
+    // function getPostContent($post_id) {
+    //     $conn = connectDb();
+    //     $postArr = array();
+
+    //     $sql = "SELECT c.id, p.user_id, u.name, p.content, c.content FROM comment c
+    //             INNER JOIN `user` u ON u.id = p.user_id
+    //             INNER JOIN `post` p ON p.id = c.post_id";
+                
+
+    //     if($result = $conn->query($sql)) {
+    //         while($row = $result->fetch_assoc()) {
+    //             array_push($postArr, $row); //Return all post in array
+    //         }
+    //     }
+    //     else {
+    //         echo $conn->error; //error message will prompt
+    //     }
+    //     $conn->close();
+    //     return $postArr;
+    // }
+
     function postDeletePermission($postId) {
         $conn = connectDb();
 

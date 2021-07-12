@@ -30,19 +30,23 @@
     <div class="row justify-content-center pt-2" style="margin-bottom: 4rem!important;">
         <div class="col-2"> </div>
         <div class="col-8">
-            <?php if (isset($_SESSION["userId"])) { ?>
-                <div class="card">
-                    <h5 class="card-header">Create Post</h5>
-                    <div class="card-body">
-                        <form method="POST" class="mb-0">
-                            <div class="mb-3">
-                                <textarea class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
-                            </div>
-                            <input type="submit" name="postPost" class="btn btn-primary" value="Post">
-                        </form>
+            <?php 
+                if (isset($_SESSION["userId"])) { 
+            ?>
+                    <div class="card">
+                        <h5 class="card-header">Create Post</h5>
+                        <div class="card-body">
+                            <form method="POST" class="mb-0">
+                                <div class="mb-3">
+                                    <textarea class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
+                                </div>
+                                <input type="submit" name="postPost" class="btn btn-primary" value="Post">
+                            </form>
+                        </div>
                     </div>
-                </div>
-            <?php } ?>
+            <?php 
+                } 
+            ?>
             <br />
             <div class="card">
                 <h5 class="card-header">Posts</h5>
@@ -88,7 +92,16 @@
                             <div class="col-2"> </div>
                             <div class="col-8 text-center my-5"> 
                                 <span class="font-weight-bold" style="font-size: 25px">There is no Post</span><br />
-                                <span class="font-weight-bold" style="font-size: 25px">Post your first post now</span>
+                                <span class="font-weight-bold" style="font-size: 25px">Post your first post now</span><br />
+                                <?php 
+                                    if (!isset($_SESSION["userId"])) { 
+                                ?>
+                                    <a href="login.php">
+                                        <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up now to post</span>
+                                    </a>
+                                <?php 
+                                    }
+                                ?>
                             </div>
                             <div class="col-2"> </div>
                         </div>

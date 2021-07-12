@@ -27,25 +27,25 @@
 ?>  
     <nav class="navbar sticky-top navbar-expand-lg navbar-light px-3 py-2" style="background-color: #a2c3fa;">
         <div class="container-fluid">
-            <div class="col-1 col-lg-3 p-0">
+            <div class="col-2 col-lg-3 p-0">
                 <a class="navbar-brand align-center" href="index.php">
                     <img src="imgs/helpu.png" alt="HelpU Student Website Logo" width="85px" height="80px">
                 </a>
             </div>
 
-            <div class="col-10 col-lg-6 text-center p-0">
+            <div class="col-8 col-lg-6 text-center p-0">
                 <a class="navbar-brand" href="index.php">
                     <h1 class="d-none d-lg-block">HelpU Student Website</h1>
                     <span class="d-lg-none font-weight-bold" style="font-size:30px">HelpU Student Website</span>
                 </a>
             </div>
-            <div class="col-1 col-lg-3 p-0">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <!--Navbar's toggler-->
+            <div class="col-2 col-lg-3 p-0">
+                <button class="navbar-toggler ml-5" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <!--Navbar's toggler-->
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav float-right ml-auto">
+                <div class="collapse navbar-collapse ml-5 ml-lg-0" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
                             <?php
                                 if(!$_SESSION["isLogin"]) { //if user is not logged in
                             ?>

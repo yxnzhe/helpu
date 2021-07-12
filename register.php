@@ -7,7 +7,7 @@
         require_once "function.php";
         if(!$_SESSION["isLogin"]) { //if user is not logged in
     ?>
-    <div class="container p-4 mt-5" style="width: 400px; border: 1px solid black;">
+    <div class="container p-4 mt-5 register" style="width: 400px; border: 1px solid black; margin-bottom: 3rem!important;">
         <div class="row justify-content-center">
             <p class="text-center font-weight-bold" style="font-size:25px">HELPU</p>
             <form class="col-12" method="POST"> <!--Form of the login-->

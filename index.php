@@ -8,7 +8,6 @@
             $postContent = $_POST["post_content"];
             post($postContent);
         }
-
         if(isset($_POST["deletePost"])){
             if(postDeletePermission($_POST["post_id"])) {
                 deletePost($_POST["post_id"]);
@@ -16,6 +15,11 @@
             else {
                 echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
             }
+        }
+        if (isset($_POST["post_button"])) {
+            $postId = $_POST["post_id"];
+            $comment = $_POST["comment"];
+            addComment($postId, $comment);
         }
     ?>
 </head>
@@ -57,19 +61,17 @@
                                     <input type=submit name="post_button" class="btn btn-primary" value="Post" />
                                 </div>
                                 <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
-                                <?php
-                                if (isset($_POST["post_button"])) {
-                                    $postId = $_POST["post_id"];
-                                    $comment = $_POST["comment"];
-                                    addComment($postId, $comment);
-                                }
-                                ?>
                             </div>
                         </form>
-                        <form method="POST">
-                            <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
-                            <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post">
-                        </form>
+                        <?php if(isset($_SESSION["userId"])){ 
+                            if($i["user_id"] == $_SESSION["userId"]){ ?>
+                                <form method="POST">
+                                    <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
+                                    <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post">
+                                </form>
+                            <?php 
+                            } 
+                        }?>
                     </div>
                     <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                 <?php

@@ -61,7 +61,7 @@
             ?>
                     <div class="row">
                         <div class="col-2"> </div>
-                        <div class="col-8 text-center mt-5"> 
+                        <div class="col-8 text-center mt-3"> 
                             <a href="login.php">
                                 <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up </span>
                             </a>

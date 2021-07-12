@@ -39,7 +39,7 @@
 			<div class="col-2"></div>
 			<div class="col-8 text-center">
 				<span style="font-size:17px;">If you don't have an account</span>
-				<a class="" href="register.php">
+				<a href="register.php">
                     <span style="font-size:17px">Create an Account</span>
                 </a>
 			</div>

@@ -31,6 +31,9 @@
                 $uniqEmail = true;
             }
         }
+        $stmt->close();
+        $conn->close();
+
         return $uniqEmail;
     }
 
@@ -168,22 +171,46 @@
         $conn->close();
     }
 
-    function getAllPosts(){
+    function getAllPosts() {
         $conn = connectDb();
         $postArr = array();
 
         $sql = "SELECT p.id, p.user_id, u.name, p.content FROM post p
                 INNER JOIN `user` u ON u.id = p.user_id";
 
-        if($result = $conn->query($sql)){
-            while($row = $result->fetch_assoc()){
+        if($result = $conn->query($sql)) {
+            while($row = $result->fetch_assoc()) {
                 array_push($postArr, $row); //Return all post in array
             }
-        }else{
+        }
+        else {
             echo $conn->error; //error message will prompt
         }
-        
+        $conn->close();
         return $postArr;
+    }
+
+    function postDeletePermission($postId) {
+        $conn = connectDb();
+
+        $sql = "SELECT count(*) FROM post WHERE id = ? and `user_id` = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $postId, $_SESSION["userId"]);
+        if($stmt->execute()) {
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            if($count > 0) {
+                $postExist = true;
+            }
+            else {
+                $postExist = false;
+            }
+        }
+        $stmt->close();
+        $conn->close();
+        
+        return $postExist;
     }
 
     function addComment($postId, $comment){ //function to allow user to post their comments

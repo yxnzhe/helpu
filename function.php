@@ -2,7 +2,7 @@
     function connectDb() { //Connect to database
         $servername = "localhost";
         $username = "root";
-        $password = "mlxh011001";
+        $password = "";
         $db = "helpu";
 
         $conn = mysqli_connect($servername, $username, $password, $db);
@@ -176,7 +176,8 @@
         $postArr = array();
 
         $sql = "SELECT p.id, p.user_id, u.name, p.content FROM post p
-                INNER JOIN `user` u ON u.id = p.user_id";
+                INNER JOIN `user` u ON u.id = p.user_id
+                ORDER BY p.created_at DESC";
 
         if($result = $conn->query($sql)) {
             while($row = $result->fetch_assoc()) {

@@ -268,7 +268,7 @@
         }
     }
 
-    function deleteComment($commentId){ //function to allow user to delete their comment
+    function deleteComment($commentId) { //function to allow user to delete their comment
         $conn = connectDb();
 
         $sql = "DELETE FROM comment WHERE id = ?";

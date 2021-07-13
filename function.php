@@ -151,15 +151,12 @@
 
         if($stmt->execute()) {
             $stmt->close();
-            echo "Comment successfully deleted!";
 
             $sql = "DELETE FROM post WHERE id = ?";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $postId);
 
-            if($stmt->execute()) {
-                echo "Post successfully deleted!";
-            }
+            if($stmt->execute()) {}
             else {
                 echo $conn->error;
             }
@@ -308,9 +305,7 @@
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $commentId);
 
-        if($stmt->execute()) {
-            echo "Comment successfully deleted!";    
-        }
+        if($stmt->execute()) {}
         else{
             echo $conn->error; //error message will prompt
         }

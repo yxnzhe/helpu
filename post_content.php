@@ -54,19 +54,15 @@
             }
 
             if(isset($_POST["post_content_deleteComment"])) {
-                if($_POST["post_content_commentId"] == $c["commentId"]) {
-                    deleteComment($_POST["post_content_commentId"]);
-                }
-                else {
-                    echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
-                }
+                deleteComment($_POST["post_content_commentId"]);
             }
         ?>
             <div class="card">
                 <h5 class="card-header">Comments</h5>
                 <?php
                     $getComment = getComment($_GET["post"]);
-                    foreach ($getComment as $c) {
+                    if(count($getComment) > 0) {
+                        foreach ($getComment as $c) {
                 ?>
                     <div class="card-body mb-1">
                         <h5 class="card-title"><?php echo $c["username"]; ?></h5>
@@ -88,6 +84,12 @@
                     </div>
                     <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                 <?php
+                        }
+                    }
+                    else {
+                        echo "  <div class='row justify-content-center py-4'>
+                                    <span style='font-size: 20px;'>No Comment</span>
+                                </div>";
                     }
                 ?>
             </div>

@@ -2,7 +2,7 @@
     function connectDb() { //Connect to database
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $password = "mlxh011001";
         $db = "helpu";
 
         $conn = mysqli_connect($servername, $username, $password, $db);
@@ -291,7 +291,7 @@
 
             if($stmt->execute()) {
                 echo "Comment successfully posted!";
-                echo "<script> location.href='post_content.php'; </script>";    
+                echo "<script> location.href='post_content.php?post=".$postId."' </script>";    
             }
             else{
                 echo $conn->error; //error message will prompt

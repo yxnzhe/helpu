@@ -2,7 +2,7 @@
     function connectDb() { //Connect to database
         $servername = "localhost";
         $username = "root";
-        $password = "mlxh011001";
+        $password = "";
         $db = "helpu";
 
         $conn = mysqli_connect($servername, $username, $password, $db);
@@ -198,18 +198,19 @@
         $sql = "SELECT p.user_id, u.name, p.content FROM post p
                 INNER JOIN `user` u ON u.id = p.user_id
                 WHERE p.id = ?";
-
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s",  $postId);
 
-        if($result = $conn->query($sql)) {
-            while($row = $result->fetch_assoc()) {
-                array_push($postArr, $row); //Return all post in array
-            }
+        if($stmt->execute()) {
+            $stmt->bind_result($userId, $name, $content);
+            $stmt->fetch();
+            $post = array("user_id" => $userId, "name" => $name, "content" => $content);
+            array_push($postArr, $post);
         }
         else {
             echo $conn->error; //error message will prompt
         }
+        $stmt->close();
         $conn->close();
         return $postArr;
     }

@@ -99,8 +99,7 @@
 
                     if(count($getAllPost) > 0) {
                         foreach ($getAllPost as $i) {
-                            print_r(getPost($i["id"]));
-                            echo $i["id"];
+                            print_r(getPost($i['id']));
                 ?>
                             <div class="card-body mb-1">
                                 <h5 class="card-title"><?php echo $i["name"]; ?></h5>
@@ -115,6 +114,7 @@
                                             <input type=submit name="post_button" class="btn btn-primary" value="Post" />
                                         </div>
                                         <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
+                                        <!-- <p><?php echo count(getPost($i["id"])); ?></p> -->
                                     </div>
                                 </form>
                                 <?php 

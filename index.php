@@ -1,7 +1,4 @@
 <html>
-<script>
-
-</script>
 <head>
     <?php
         require_once "navbar.php";
@@ -97,7 +94,6 @@
                                             <input type=submit name="postComment" class="btn btn-primary" value="Post" />
                                         </div>
                                         <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
-                                        <!-- <p><?php echo count(getPost($i["id"])); ?></p> -->
                                     </div>
                                 </form>
                                 <?php

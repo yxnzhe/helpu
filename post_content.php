@@ -45,7 +45,7 @@
     <?php
     }
     else {
-        echo "  <div class='row justify-content-center pt-4'>
+        echo "  <div class='row justify-content-center py-4'>
                     <span style='color: red; font-size: 20px;'>Undefined Post ID</span>
                 </div>";
     }

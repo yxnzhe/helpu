@@ -103,9 +103,9 @@
                                     <div class="row">
                                         <div class="col-12"> 
                                             <a href="login.php">
-                                                <span class="font-weight-bold" style="font-size: 20px">Login/Sign Up </span>
+                                                <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
                                             </a>
-                                            <span class="font-weight-bold" style="font-size: 20px">now to comment</span>
+                                            <span class="font-weight-bold" style="font-size: 16px">now to comment</span>
                                         </div>
                                     </div>
                                     

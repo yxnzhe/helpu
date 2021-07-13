@@ -69,7 +69,7 @@
                         <p class="card-text"><?php echo $c["content"];?></p>
                     <?php
                         if(isset($_SESSION["userId"])) { 
-                            if($i["user_id"] == $_SESSION["userId"]) { 
+                            if($c["userId"] == $_SESSION["userId"]) { 
                     ?>      
                             <div class="row justify-content-end">
                                 <form method="POST" class="mb-0">

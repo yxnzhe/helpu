@@ -217,7 +217,7 @@
         $conn = connectDb();
         $commentArr = array();
 
-        $sql = "SELECT u.name, c.id, c.content  FROM comment c
+        $sql = "SELECT u.id, u.name, c.id, c.content  FROM comment c
                 INNER JOIN `user` u ON u.id = c.user_id
                 WHERE c.post_id = ?
                 ORDER BY c.created_at DESC";
@@ -226,10 +226,10 @@
         $stmt->bind_param("s",  $postId);
 
         if($stmt->execute()) {
-            $stmt->bind_result($username, $commentId, $content);
+            $stmt->bind_result($userId, $username, $commentId, $content);
             while($stmt->fetch()){
 
-                $comment = array("username" => $username, "commentId" => $commentId, "content" => $content);
+                $comment = array("userId" => $userId, "username" => $username, "commentId" => $commentId, "content" => $content);
                 array_push($commentArr, $comment);
             }
      

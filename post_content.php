@@ -13,9 +13,8 @@
             <div class="card ">
                 <h5 class="card-header">Posts</h5>
                 <?php
-                    $getPost = getPost($_GET["post"]);
                     if(isset($_GET["post"])) {
-
+                        $getPost = getPost($_GET["post"]);
                     if(count($getPost) > 0) {
                         foreach ($getPost as $i) {
                 ?>

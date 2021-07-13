@@ -114,7 +114,7 @@
                                             <div class="pt-1 text-right" id="charNumComment"></div>
                                         </div>
                                         <div class="col-2 p-0 col-lg-1">
-                                            <input type=submit name="post_button" class="btn btn-primary" value="Post" />
+                                            <input type=submit name="post_button" class="btn btn-primary" value="Post"/>
                                         </div>
                                         <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
                                         <!-- <p><?php echo count(getPost($i["id"])); ?></p> -->

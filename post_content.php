@@ -8,8 +8,8 @@
 
 <body>
     <?php
-    $getPost = getPost($postId);
-    getPost($_GET["post"]);
+    if(isset($_GET["post"])) {
+        getPost($_GET["post"]);
     ?>
     <div class="row justify-content-center pt-2 " style="margin-bottom: 4rem!important;">
         <div class="col-2"> </div>
@@ -42,6 +42,14 @@
         </div>
         <div class="col-2"> </div>
     </div>
+    <?php
+    }
+    else {
+        echo "  <div class='row justify-content-center pt-4'>
+                    <span style='color: red; font-size: 20px;'>Undefined Post ID</span>
+                </div>";
+    }
+    ?>
 </body>
 
 </html>

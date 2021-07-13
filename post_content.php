@@ -7,6 +7,10 @@
 </head>
 
 <body>
+    <?php
+    $getPost = getPost($postId);
+    getPost($_GET["post"]);
+    ?>
     <div class="row justify-content-center pt-2 " style="margin-bottom: 4rem!important;">
         <div class="col-2"> </div>
         <div class="col-8">
@@ -32,7 +36,7 @@
                         </form>
 
                     </div>
-                    
+
                 </div>
             </div>
         </div>

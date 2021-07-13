@@ -104,6 +104,9 @@
                             <div class="card-body mb-1">
                                 <h5 class="card-title"><?php echo $i["name"]; ?></h5>
                                 <p class="card-text"><?php echo $i["content"];?></p>
+                            <?php
+                                if(isset($_SESSION["userId"])) {
+                            ?>
                                 <form method="POST" class="mb-0">
                                     <div class="mb-3 row">
                                         <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
@@ -117,7 +120,20 @@
                                         <!-- <p><?php echo count(getPost($i["id"])); ?></p> -->
                                     </div>
                                 </form>
+                                <?php
+                                    }
+                                    else {
+                                ?>
+                                    <div class="row">
+                                        <div class="col-12"> 
+                                            <a href="login.php">
+                                                <span class="font-weight-bold" style="font-size: 20px">Login/Sign Up </span>
+                                            </a>
+                                            <span class="font-weight-bold" style="font-size: 20px">now to comment</span>
+                                        </div>
+                                    </div>
                                 <?php 
+                                    }
                                     if(isset($_SESSION["userId"])) { 
                                         if($i["user_id"] == $_SESSION["userId"]) { ?>
                                             <form method="POST">

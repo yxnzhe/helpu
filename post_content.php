@@ -11,6 +11,7 @@
                 <h5 class="card-header">Posts</h5>
                 <?php
                     $getPost = getPost($postId);
+                    getPost($_GET["post"]);
 
                     if(count($getPost) > 0) {
                         foreach ($getPost as $i) {

@@ -132,19 +132,31 @@
                                             <span class="font-weight-bold" style="font-size: 20px">now to comment</span>
                                         </div>
                                     </div>
+                                    
                                 <?php 
                                     }
+                                ?>
+                                    <div class="row">
+                                        <div class="col-6"> 
+                                <?php
                                     if(isset($_SESSION["userId"])) { 
-                                        if($i["user_id"] == $_SESSION["userId"]) { ?>
+                                        if($i["user_id"] == $_SESSION["userId"]) { 
+                                ?>
                                             <form method="POST">
-                                                <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
+                                                <input type="hidden" value= <?php echo $i["id"];?> name="post_id" />
                                                 <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post">
                                             </form>
-                                        <?php 
+                                <?php 
                                         } 
                                     }
                                 ?>
-                                
+                                        </div>
+                                        <div class="col-6 text-right"> 
+                                            <a href="post_content.php?post=<?php echo $i["id"];?>" style="color: darkblue;">
+                                                <span class=" mr-3" style="font-size: 16px">View <?php echo count(getComment($i["id"]));?> Comment(s)</span>
+                                            </a>
+                                        </div>
+                                    </div>
                             </div>
                             <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                 <?php

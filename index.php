@@ -99,6 +99,8 @@
 
                     if(count($getAllPost) > 0) {
                         foreach ($getAllPost as $i) {
+                            print_r(getPost($i["id"]));
+                            echo $i["id"];
                 ?>
                             <div class="card-body mb-1">
                                 <h5 class="card-title"><?php echo $i["name"]; ?></h5>

@@ -14,6 +14,8 @@
                 <h5 class="card-header">Posts</h5>
                 <?php
                     $getPost = getPost($_GET["post"]);
+                    if(isset($_GET["post"])) {
+
                     if(count($getPost) > 0) {
                         foreach ($getPost as $i) {
                 ?>
@@ -46,6 +48,14 @@
         </div>
         <div class="col-2"> </div>
     </div>
+    <?php
+    }
+    else {
+        echo "  <div class='row justify-content-center pt-4'>
+                    <span style='color: red; font-size: 20px;'>Undefined Post ID</span>
+                </div>";
+    }
+    ?>
 </body>
 
 </html>

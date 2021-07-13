@@ -99,7 +99,7 @@
 
                     if(count($getAllPost) > 0) {
                         foreach ($getAllPost as $i) {
-                            print_r(getPost($i['id']));
+                            print_r(getComment($i['id']));
                 ?>
                             <div class="card-body mb-1">
                                 <h5 class="card-title"><?php echo $i["name"]; ?></h5>
@@ -128,6 +128,7 @@
                                         } 
                                     }
                                 ?>
+                                
                             </div>
                             <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                 <?php

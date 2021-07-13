@@ -2,7 +2,7 @@
     function connectDb() { //Connect to database
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $password = "mlxh011001";
         $db = "helpu";
 
         $conn = mysqli_connect($servername, $username, $password, $db);
@@ -198,6 +198,7 @@
         $sql = "SELECT p.user_id, u.name, p.content FROM post p
                 INNER JOIN `user` u ON u.id = p.user_id
                 WHERE p.id = ?";
+                
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s",  $postId);
 
@@ -215,26 +216,34 @@
         return $postArr;
     }
 
-    // function getComment($post_id) {
-    //     $conn = connectDb();
-    //     $postArr = array();
+    function getComment($postId) {
+        $conn = connectDb();
+        $commentArr = array();
 
-    //     $sql = "SELECT c.id, p.user_id, u.name, p.content, c.content FROM comment c
-    //             INNER JOIN `user` u ON u.id = p.user_id
-    //             INNER JOIN `post` p ON p.id = c.post_id";
+        $sql = "SELECT u.name, c.id, c.content  FROM comment c
+                INNER JOIN `user` u ON u.id = c.user_id
+                WHERE c.post_id = ?
+                ORDER BY c.created_at DESC";
                 
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s",  $postId);
 
-    //     if($result = $conn->query($sql)) {
-    //         while($row = $result->fetch_assoc()) {
-    //             array_push($postArr, $row); //Return all post in array
-    //         }
-    //     }
-    //     else {
-    //         echo $conn->error; //error message will prompt
-    //     }
-    //     $conn->close();
-    //     return $postArr;
-    // }
+        if($stmt->execute()) {
+            $stmt->bind_result($username, $commentId, $content);
+            while($stmt->fetch()){
+
+                $comment = array("username" => $username, "commentId" => $commentId, "content" => $content);
+                array_push($commentArr, $comment);
+            }
+     
+        }
+        else {
+            echo $conn->error; //error message will prompt
+        }
+        $stmt->close();
+        $conn->close();
+        return $commentArr;
+    }
 
     function postDeletePermission($postId) {
         $conn = connectDb();

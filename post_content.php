@@ -7,20 +7,21 @@
 </head>
 
 <body>
-    <?php
-    $getPost = getPost($postId);
-    getPost($_GET["post"]);
-    ?>
     <div class="row justify-content-center pt-2 " style="margin-bottom: 4rem!important;">
         <div class="col-2"> </div>
         <div class="col-8">
             <div class="card ">
                 <h5 class="card-header">Posts</h5>
+                <?php
+                    $getPost = getPost($_GET["post"]);
+                    if(count($getPost) > 0) {
+                        foreach ($getPost as $i) {
+                ?>
                 <div class="row justify-content-center">
 
                     <div class="card-body mb-1 mx-2">
-                        <h5 class="card-title">name</h5>
-                        <p class="card-text">post content</p>
+                        <h5 class="card-title"><?php echo $i["name"] ?></h5>
+                        <p class="card-text"><?php echo $i["content"] ?></p>
 
                         <form method="POST" class="mb-0">
                             <div class="mb-3 row">
@@ -38,6 +39,9 @@
                     </div>
 
                 </div>
+                <?php
+                }   }           
+                ?>
             </div>
         </div>
         <div class="col-2"> </div>

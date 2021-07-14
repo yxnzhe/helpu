@@ -44,7 +44,7 @@
         <?php
             if (isset($_POST["post_comment_button"])) {
                 if(empty($_POST["post_content_comment"])) {
-                    echo "<span style='color: red; font-size: 20px;'>Comment is Empty</span>";
+                    echo "<span class='errorMsg'>Comment is Empty</span>";
                 }
                 else {
                     $postId = $_POST["post_content_postId"];
@@ -98,7 +98,7 @@
             }
             else {
                 echo "  <div class='row justify-content-center py-4'>
-                            <span style='color: red; font-size: 20px;'>Undefined Post ID</span>
+                            <span class='errorMsg'>Undefined Post ID</span>
                         </div>";
             }           
         ?>
@@ -109,7 +109,7 @@
     }
     else {
         echo "  <div class='row justify-content-center py-4'>
-                    <span style='color: red; font-size: 20px;'>Undefined Post ID</span>
+                    <span class='errorMsg'>Undefined Post ID</span>
                 </div>";
     }
     ?>

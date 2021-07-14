@@ -24,7 +24,7 @@
                             <?php
                                 if(isset($_POST["postPost"])) {
                                     if(empty($_POST["post_content"])) {
-                                        echo "<span style='color: red; font-size: 20px;'>Content is Empty</span>";
+                                        echo "<span class='errorMsg'>Content is Empty</span>";
                                     }
                                     else {
                                         $postContent = $_POST["post_content"];
@@ -52,7 +52,7 @@
                 }
                 if (isset($_POST["postComment"])) {
                     if(empty($_POST["comment"])) {
-                        echo "<span style='color: red; font-size: 20px;'>Comment is Empty</span>";
+                        echo "<span class='errorMsg'>Comment is Empty</span>";
                     }
                     else {
                         $postId = $_POST["post_id"];
@@ -66,7 +66,7 @@
                         deletePost($_POST["post_id"]);
                     }
                     else {
-                        echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
+                        echo "<span class='errorMsg'>You Do Not Have Permission!</span>";
                     }
                 }
             ?>

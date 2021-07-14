@@ -4,3 +4,13 @@
     bottom: 0;
     width: 100%;
 }
+
+.errorMsg{
+    color: red;
+    font-size: 20px;
+}
+
+.successMsg{
+    color: green;
+    font-size: 20px;
+}

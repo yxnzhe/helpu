@@ -3,6 +3,19 @@
 <head>
     <?php
         require_once "navbar.php";
+        if (isset($_POST["post_comment_button"])) { //if the post comment button is clicked
+            if(empty($_POST["post_content_comment"])) { //if the comment input field is empty
+                $postCommMsg = "<span class='errorMsg'>Comment is Empty</span>";
+            }
+            else { //if the comment input field is not empty
+                $postId = $_POST["post_content_postId"];
+                $comment = strip_tags($_POST["post_content_comment"]); //strip_tags is a php function to remove html tags from input for example <b></b>
+                $postCommMsg = addComment($postId, $comment);
+            }
+        }
+        else if(isset($_POST["post_content_deleteComment"])) { //else if the delete button is clicked
+            $deleteMsg = deleteComment($_POST["post_content_commentId"]);
+        }
     ?>
 </head>
 
@@ -33,6 +46,11 @@
                                 <div class="col-2 p-0 col-lg-1">
                                     <input type=submit name="post_comment_button" class="btn btn-primary" value="Post" />
                                 </div>
+                                <?php
+                                    if(isset($postCommMsg)){
+                                        echo $postCommMsg;
+                                    }
+                                ?>
                             </div>
                         </form>
                     </div>
@@ -41,22 +59,6 @@
                 }
         ?>  </div>
             <br />
-        <?php
-            if (isset($_POST["post_comment_button"])) {
-                if(empty($_POST["post_content_comment"])) {
-                    echo "<span class='errorMsg'>Comment is Empty</span>";
-                }
-                else {
-                    $postId = $_POST["post_content_postId"];
-                    $comment = $_POST["post_content_comment"];
-                    addComment($postId, $comment);
-                }
-            }
-
-            if(isset($_POST["post_content_deleteComment"])) {
-                deleteComment($_POST["post_content_commentId"]);
-            }
-        ?>
             <div class="card">
                 <h5 class="card-header">Comments</h5>
                 <?php
@@ -76,6 +78,11 @@
                                     <input type="hidden" value= <?php echo $c["commentId"];?> name="post_content_commentId" />
                                     <input type="submit" class="btn btn-danger mr-5" name="post_content_deleteComment" value="Delete Comment">
                                 </form>
+                                <?php
+                                    if(isset($deleteMsg)){
+                                        echo $deleteMsg;
+                                    }
+                                ?>
                             </div>
                     <?php
                             } 

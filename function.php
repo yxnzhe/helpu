@@ -111,10 +111,10 @@
 
     function post($content) {
         if($content == "") {
-            echo "<span class='errorMsg'>Content is empty</span>";
+            $msg = "<span class='errorMsg'>Content is empty</span>";
         }
         else if(strlen($content) > 255){
-            echo "<span class='errorMsg'>Your content exceeded 255 characters.</span>";
+            $msg = "<span class='errorMsg'>Your content exceeded 255 characters.</span>";
         }
         else {
             $id = md5(microtime());;
@@ -132,13 +132,14 @@
             $stmt->bind_param("ssss", $id, $userId, $content, $newDateTime);
             
             if($stmt->execute()) { //to execute the statement
-                echo "<span class='successMsg'>Post successfully posted!</span>"; //alert tag will be present if the statement is successfully submitted
+                $msg = "<span class='successMsg'>Post successfully posted!</span>"; //alert tag will be present if the statement is successfully submitted
             }
             else {
-                echo "<span class='errorMsg'>Failed to create Post. Reason: ".$conn->error."</span>"; //error message will be present if failed to execute the statement
+                $msg = "<span class='errorMsg'>Failed to create Post. Reason: ".$conn->error."</span>"; //error message will be present if failed to execute the statement
             }
             $stmt->close();
             $conn->close();
+            return $msg;
         }
     }
 
@@ -158,14 +159,15 @@
 
             if($stmt->execute()) {}
             else {
-                echo $conn->error;
+                $msg = $conn->error;
             }
         }
         else {
-            echo $conn->error; //error message will prompt
+            $msg = $conn->error; //error message will prompt
         }
         $stmt->close();
         $conn->close();
+        return $msg;
     }
 
     function getAllPosts() {
@@ -266,10 +268,10 @@
 
     function addComment($postId, $comment){ //function to allow user to post their comments
         if($comment == ""){ //If comment is submitted without any values
-            echo "<span class='errorMsg'>Comment is empty.</span>";
+            $msg = "<span class='errorMsg'>Comment is empty.</span>";
         }
         else if(strlen($comment) > 150){ //If the comment exceeded 150 characters
-            echo "<span class='errorMsg'>Comment cannot exceed 150 characters.</span>";
+            $msg = "<span class='errorMsg'>Comment cannot exceed 150 characters.</span>";
         }
         else{
             $conn = connectDb(); //connect to databsae
@@ -286,7 +288,7 @@
             $stmt->bind_param("sssss", $commentId, $userId, $postId, $comment, $dateTime);
 
             if($stmt->execute()) {
-                echo "<span class='successMsg'>Comment successfully posted!</span>";
+                $msg = "<span class='successMsg'>Comment successfully posted!</span>";
                 echo "<script> location.href='post_content.php?post=".$postId."' </script>";    
             }
             else{
@@ -294,6 +296,7 @@
             }
             $stmt->close();
             $conn->close();
+            return $msg;
         }
     }
 
@@ -306,7 +309,7 @@
 
         if($stmt->execute()) {}
         else{
-            echo $conn->error; //error message will prompt
+            $msg = $conn->error; //error message will prompt
         }
         $stmt->close();
         $conn->close();

@@ -22,11 +22,11 @@
             }
         }
         else if(isset($_POST["deletePost"])) { //else if delete post button is clicked
-            if(postDeletePermission($_POST["post_id"])) { //if the user have permission to delete the post (is the owner of the post)
+            if(isset($_POST["post_id"]) && postDeletePermission($_POST["post_id"])) { //if the user have permission to delete the post (is the owner of the post)
                 $deleteMsg = deletePost($_POST["post_id"]); //delete the post
             }
             else { //the user do not have permission to delete the post (not the owner of the post)
-                $deleteMsg = "<span class='errorMsg'>You Do Not Have Permission!</span>";
+                echo "<script>alert('You Do Not Have Permission!')</script>";
             }
         }
     ?>
@@ -96,19 +96,16 @@
                                             <input type=submit name="postComment" class="btn btn-primary" value="Post" />
                                         </div>
                                         <input type="hidden" value= <?php echo $i["id"]?> name="post_id" />
-                                        <?php
-                                        if(isset($commentErrMsg)){
-                                            echo $commentErrMsg;
-                                        }
-                                        else if(isset($deleteMsg)){
-                                            echo $deleteMsg;
-                                        }
-                                        ?>
                                     </div>
                                 </form>
                                 <?php
+                                    if(isset($_POST["post_id"]) && $_POST["post_id"] == $i['id']){
+                                        if(isset($commentErrMsg)){
+                                            echo $commentErrMsg;
+                                        }
                                     }
-                                    else {
+                                }
+                                else {
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 

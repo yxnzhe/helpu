@@ -19,7 +19,7 @@
     ?>
 </head>
 
-<body>
+<body style="background-color: #f3f3f3">
     <?php
     if(isset($_GET["post"])) {
         $getPost = getPost($_GET["post"]);
@@ -46,13 +46,13 @@
                                 <div class="col-2 p-0 col-lg-1">
                                     <input type=submit name="post_comment_button" class="btn btn-primary" value="Post" />
                                 </div>
-                                <?php
-                                    if(isset($postCommMsg)){
-                                        echo $postCommMsg;
-                                    }
-                                ?>
                             </div>
                         </form>
+                        <?php
+                            if(isset($postCommMsg)){
+                                echo $postCommMsg;
+                            }
+                        ?>
                     </div>
                 </div>
         <?php

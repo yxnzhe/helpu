@@ -110,6 +110,7 @@
     }
 
     function post($content) {
+        $msg = "";
         if($content == "") {
             $msg = "<span class='errorMsg'>Content is empty</span>";
         }
@@ -145,7 +146,7 @@
 
     function deletePost($postId) {
         $conn = connectDb();
-
+        $msg = "";
         $sql = "DELETE FROM comment WHERE post_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $postId);
@@ -159,7 +160,7 @@
 
             if($stmt->execute()) {}
             else {
-                $msg = $conn->error;
+                $msg = "<span class='errorMsg'>You cannot delete the post</span>";
             }
         }
         else {
@@ -267,6 +268,7 @@
     }
 
     function addComment($postId, $comment){ //function to allow user to post their comments
+        $msg = "";
         if($comment == ""){ //If comment is submitted without any values
             $msg = "<span class='errorMsg'>Comment is empty.</span>";
         }
@@ -302,15 +304,18 @@
 
     function deleteComment($commentId) { //function to allow user to delete their comment
         $conn = connectDb();
-
+        $msg = "";
         $sql = "DELETE FROM comment WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $commentId);
 
-        if($stmt->execute()) {}
+        if($stmt->execute()) {
+            $msg = "<span class='successMsg'>Comment successfully deleted!</span>";
+        }
         else{
             $msg = $conn->error; //error message will prompt
         }
         $stmt->close();
         $conn->close();
+        return $msg;
     }

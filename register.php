@@ -36,8 +36,8 @@
                     }
                     else if (!checkEmail($_POST["email"])) {}
                     else {
-                        $name = $_POST["name"];
-                        $email = $_POST["email"];
+                        $name = strip_tags($_POST["name"]);
+                        $email = strip_tags($_POST["email"]);
                         $password = $_POST["password"];
                         $confirmPass = $_POST["conPassword"];
                         register($name, $email, $password, $confirmPass);

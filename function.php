@@ -158,7 +158,10 @@
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $postId);
 
-            if($stmt->execute()) {}
+            if($stmt->execute()) {
+                echo "<script>alert('Post successfully deleted')</script>";
+                echo "<script> location.href='index.php' </script>";
+            }
             else {
                 $msg = "<span class='errorMsg'>You cannot delete the post</span>";
             }
@@ -255,6 +258,52 @@
             $stmt->fetch();
 
             if($count > 0) {
+                $postPermission = true;
+            }
+            else {
+                $postPermission = false;
+            }
+        }
+        $stmt->close();
+        $conn->close();
+        
+        return $postPermission;
+    }
+
+    function commentDeletePermission($commentId) {
+        $conn = connectDb();
+
+        $sql = "SELECT count(*) FROM comment WHERE id = ? and `user_id` = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $commentId, $_SESSION["userId"]);
+        if($stmt->execute()) {
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            if($count > 0) {
+                $commentPermissionm = true;
+            }
+            else {
+                $commentPermissionm = false;
+            }
+        }
+        $stmt->close();
+        $conn->close();
+        
+        return $commentPermissionm;
+    }
+
+    function postExist($postId) {
+        $conn = connectDb();
+
+        $sql = "SELECT count(*) FROM post WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $postId);
+        if($stmt->execute()) {
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            if($count > 0) {
                 $postExist = true;
             }
             else {
@@ -309,9 +358,7 @@
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $commentId);
 
-        if($stmt->execute()) {
-            $msg = "<span class='successMsg'>Comment successfully deleted!</span>";
-        }
+        if($stmt->execute()) {}
         else{
             $msg = $conn->error; //error message will prompt
         }

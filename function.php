@@ -25,7 +25,7 @@
             
             if($count > 0) {
                 $uniqEmail = false;
-                echo "<span style='color: red; font-size: 20px;'>Email Address Already Exist!</span>";
+                echo "<span class='errorMsg'>Email Address Already Exist!</span>";
             }
             else {
                 $uniqEmail = true;
@@ -39,13 +39,13 @@
 
     function register($name, $email, $password, $confirmPassword) { //function to allow user to register to the website
         if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
-            echo "<span style='color: red; font-size: 20px;'>All field is Mandatory!</span>";
+            echo "<span class='errorMsg'>All field is Mandatory!</span>";
         }
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
-            echo "<span style='color: red; font-size: 20px;'>Invalid email format!</span>";
+            echo "<span class='errorMsg'>Invalid email format!</span>";
         }
         else if($password != $confirmPassword){ //Check whether the password and confirm password is match or not
-            echo "<span style='color: red; font-size: 20px;'>Password does not match!</span>";
+            echo "<span class='errorMsg'>Password does not match!</span>";
         }
         else { //If all field is with value and the email format is correct, then will create the user in our database
             $conn = connectDb();
@@ -62,7 +62,7 @@
                 echo "<script> location.href='index.php'; </script>";    
             }
             else{
-                echo "<span style='color: red; font-size: 20px;'>Error: ".$sql."<br>".$conn->error."</span>";
+                echo "<span class='errorMsg'>Error: ".$sql."<br>".$conn->error."</span>";
             }
 
             $stmt->close();
@@ -73,10 +73,10 @@
     function login($email, $password) { //function to allow user to login to the website
         $errorMsg = "";
         if($email == "" || $password == "") { //to validate whether email or password is empty
-            echo "<span style='color: red; font-size: 20px;'>All field is Mandatory!</span>";//if email or password is empty, error message will prompt
+            echo "<span class='errorMsg'>All field is Mandatory!</span>";//if email or password is empty, error message will prompt
         }
         else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //to validate whether user has entered a valid email format
-            echo "<span style='color: red; font-size: 20px;'>Invalid email format!</span>";//if email format is invalid, this error message will prompt
+            echo "<span class='errorMsg'>Invalid email format!</span>";//if email format is invalid, this error message will prompt
         }
         else { //if email and password is entered as required
             $conn = connectDb(); //connect to databsae
@@ -94,15 +94,15 @@
                         echo "<script> location.href='index.php'; </script>";
                     }
                     else { //if password is invalid
-                        echo "<span style='color: red; font-size: 20px;'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
+                        echo "<span class='errorMsg'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
                     }
                 }
                 else { //if cant fetch
-                    echo "<span style='color: red; font-size: 20px;'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
+                    echo "<span class='errorMsg'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
                 }
             }
             else { //if $stmt cant execute
-                echo "<span style='color: red; font-size: 20px;'>".$conn->error."</span>";//error message will prompt
+                echo "<span class='errorMsg'>".$conn->error."</span>";//error message will prompt
             }
             $stmt->close();
             $conn->close();
@@ -110,11 +110,12 @@
     }
 
     function post($content) {
+        $msg = "";
         if($content == "") {
-            echo "<span style='color: red; font-size: 20px;'>Content is empty</span>";
+            $msg = "<span class='errorMsg'>Content is empty</span>";
         }
-        else if (strlen($content) > 255){
-            echo "<span style='color: red; font-size: 20px;'>Your content exceeded 255 characters.</span>";
+        else if(strlen($content) > 255){
+            $msg = "<span class='errorMsg'>Your content exceeded 255 characters.</span>";
         }
         else {
             $id = md5(microtime());;
@@ -132,19 +133,20 @@
             $stmt->bind_param("ssss", $id, $userId, $content, $newDateTime);
             
             if($stmt->execute()) { //to execute the statement
-                echo "<span style='color: green; font-size: 18px;'>Post successfully posted!</span>"; //alert tag will be present if the statement is successfully submitted
+                $msg = "<span class='successMsg'>Post successfully posted!</span>"; //alert tag will be present if the statement is successfully submitted
             }
             else {
-                echo "<span style='color: red; font-size: 18px;'>Failed to create Post. Reason: ".$conn->error."</span>"; //error message will be present if failed to execute the statement
+                $msg = "<span class='errorMsg'>Failed to create Post. Reason: ".$conn->error."</span>"; //error message will be present if failed to execute the statement
             }
             $stmt->close();
             $conn->close();
+            return $msg;
         }
     }
 
     function deletePost($postId) {
         $conn = connectDb();
-
+        $msg = "";
         $sql = "DELETE FROM comment WHERE post_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $postId);
@@ -156,16 +158,20 @@
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("s", $postId);
 
-            if($stmt->execute()) {}
+            if($stmt->execute()) {
+                echo "<script>alert('Post successfully deleted')</script>";
+                echo "<script> location.href='index.php' </script>";
+            }
             else {
-                echo $conn->error;
+                $msg = "<span class='errorMsg'>You cannot delete the post</span>";
             }
         }
         else {
-            echo $conn->error; //error message will prompt
+            $msg = $conn->error; //error message will prompt
         }
         $stmt->close();
         $conn->close();
+        return $msg;
     }
 
     function getAllPosts() {
@@ -228,8 +234,7 @@
         if($stmt->execute()) {
             $stmt->bind_result($userId, $username, $commentId, $content);
             while($stmt->fetch()){
-
-                $comment = array("userId" => $userId, "username" => $username, "commentId" => $commentId, "content" => $content);
+                $comment = array("postId" => $postId, "userId" => $userId, "username" => $username, "commentId" => $commentId, "content" => $content);
                 array_push($commentArr, $comment);
             }
      
@@ -253,6 +258,52 @@
             $stmt->fetch();
 
             if($count > 0) {
+                $postPermission = true;
+            }
+            else {
+                $postPermission = false;
+            }
+        }
+        $stmt->close();
+        $conn->close();
+        
+        return $postPermission;
+    }
+
+    function commentDeletePermission($commentId) {
+        $conn = connectDb();
+
+        $sql = "SELECT count(*) FROM comment WHERE id = ? and `user_id` = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $commentId, $_SESSION["userId"]);
+        if($stmt->execute()) {
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            if($count > 0) {
+                $commentPermissionm = true;
+            }
+            else {
+                $commentPermissionm = false;
+            }
+        }
+        $stmt->close();
+        $conn->close();
+        
+        return $commentPermissionm;
+    }
+
+    function postExist($postId) {
+        $conn = connectDb();
+
+        $sql = "SELECT count(*) FROM post WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $postId);
+        if($stmt->execute()) {
+            $stmt->bind_result($count);
+            $stmt->fetch();
+
+            if($count > 0) {
                 $postExist = true;
             }
             else {
@@ -266,11 +317,12 @@
     }
 
     function addComment($postId, $comment){ //function to allow user to post their comments
+        $msg = "";
         if($comment == ""){ //If comment is submitted without any values
-            echo "<span style='color: red; font-size: 20px;'>Comment is empty.</span>";
+            $msg = "<span class='errorMsg'>Comment is empty.</span>";
         }
         else if(strlen($comment) > 150){ //If the comment exceeded 150 characters
-            echo "<span style='color: red; font-size: 20px;'>Comment cannot exceed 150 characters.</span>";
+            $msg = "<span class='errorMsg'>Comment cannot exceed 150 characters.</span>";
         }
         else{
             $conn = connectDb(); //connect to databsae
@@ -287,7 +339,7 @@
             $stmt->bind_param("sssss", $commentId, $userId, $postId, $comment, $dateTime);
 
             if($stmt->execute()) {
-                echo "Comment successfully posted!";
+                $msg = "<span class='successMsg'>Comment successfully posted!</span>";
                 echo "<script> location.href='post_content.php?post=".$postId."' </script>";    
             }
             else{
@@ -295,20 +347,22 @@
             }
             $stmt->close();
             $conn->close();
+            return $msg;
         }
     }
 
     function deleteComment($commentId) { //function to allow user to delete their comment
         $conn = connectDb();
-
+        $msg = "";
         $sql = "DELETE FROM comment WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $commentId);
 
         if($stmt->execute()) {}
         else{
-            echo $conn->error; //error message will prompt
+            $msg = $conn->error; //error message will prompt
         }
         $stmt->close();
         $conn->close();
+        return $msg;
     }

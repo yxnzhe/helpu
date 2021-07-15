@@ -2,6 +2,38 @@
 <head>
     <?php
         require_once "navbar.php";
+        if(isset($_POST["postPost"])) { //if the post post button is clicked
+            if(empty($_POST["post_content"])) { //if the post input field is empty
+                $postErrMsg = "<span class='errorMsg'>Content is Empty</span>";
+            }
+            else { //if post input field is not empty
+                $postContent = strip_tags($_POST["post_content"]); //strip_tags is a php function to remove html tags from input for example <b></b>
+                $postErrMsg = post($postContent);
+            }
+        }
+
+        if (isset($_POST["postComment"])) { //else if the post comment button is clicked
+            if(empty($_POST["comment"])) { //if the comment input field is empty
+                $commentErrMsg = "<span class='errorMsg'>Comment is Empty</span>";
+            }
+            else { //if comment input field is not empty
+                if(postExist($_POST["post_id"])) {
+                    $postId = $_POST["post_id"];
+                    $comment = strip_tags($_POST["comment"]); //strip_tags is a php function to remove html tags from input for example <b></b>
+                    $commentErrMsg = addComment($postId, $comment);
+                    echo "<script>alert('You Do Not Have Permission!')</script>";
+                }
+            }
+        }
+
+        if (isset($_POST["deletePost"])) { //else if delete post button is clicked
+            if(isset($_POST["post_id"]) && postDeletePermission($_POST["post_id"])) { //if the user have permission to delete the post (is the owner of the post)
+                $deleteMsg = deletePost($_POST["post_id"]); //delete the post
+            }
+            else { //the user do not have permission to delete the post (not the owner of the post)
+                echo "<script>alert('You Do Not Have Permission!')</script>";
+            }
+        }
     ?>
 </head>
 
@@ -22,14 +54,8 @@
                                 <input type="submit" name="postPost" class="btn btn-primary" value="Post">
                             </form>
                             <?php
-                                if(isset($_POST["postPost"])) {
-                                    if(empty($_POST["post_content"])) {
-                                        echo "<span style='color: red; font-size: 20px;'>Content is Empty</span>";
-                                    }
-                                    else {
-                                        $postContent = $_POST["post_content"];
-                                        post($postContent);
-                                    }
+                                if(isset($postErrMsg)){
+                                    echo $postErrMsg;
                                 }
                             ?>
                         </div>
@@ -50,24 +76,8 @@
                     </div>
             <?php
                 }
-                if (isset($_POST["postComment"])) {
-                    if(empty($_POST["comment"])) {
-                        echo "<span style='color: red; font-size: 20px;'>Comment is Empty</span>";
-                    }
-                    else {
-                        $postId = $_POST["post_id"];
-                        $comment = $_POST["comment"];
-                        addComment($postId, $comment);
-                    }
-                }
-                
-                if(isset($_POST["deletePost"])) {
-                    if(postDeletePermission($_POST["post_id"])) {
-                        deletePost($_POST["post_id"]);
-                    }
-                    else {
-                        echo "<span style='color: red; font-size: 20px;'>You Do Not Have Permission!</span>";
-                    }
+                if(isset($deleteMsg)){
+                    echo $deleteMsg;
                 }
             ?>
             <br />
@@ -97,8 +107,13 @@
                                     </div>
                                 </form>
                                 <?php
+                                    if(isset($_POST["post_id"]) && $_POST["post_id"] == $i['id']) {
+                                        if(isset($commentErrMsg)){
+                                            echo $commentErrMsg;
+                                        }
                                     }
-                                    else {
+                                }
+                                else {
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 

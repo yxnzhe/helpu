@@ -48,7 +48,7 @@
                         foreach ($getPost as $i) {
                         ?>
                             <div class="row justify-content-center">
-                                <div class="card-body mb-1 mx-2">
+                                <div class="card-body mb-1 mx-3">
                                     <h5 class="card-title"><?php echo $i["name"] ?></h5>
                                     <p class="card-text"><?php echo $i["content"] ?></p>
 

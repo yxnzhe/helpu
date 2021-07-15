@@ -70,16 +70,11 @@
                                 </div>
                             </div>
                         </form>
-                        <?php
-                            if(isset($_POST["post_id"]) && $_POST["post_id"] == $i['id']) {
-                                if(isset($commentErrMsg)){
-                                    echo $commentErrMsg;
+                        <?php   
                                 }
-                            }
-                        }
                                 else {
-                                ?>
-                                 <div class="row">
+                        ?>
+                           <div class="row">
                                         <div class="col-12"> 
                                             <a href="login.php">
                                                 <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
@@ -91,7 +86,18 @@
                                 <?php 
                                     }
                                 ?>
-                                   
+                        <?php
+                            if(isset($postCommMsg)){
+                                echo $postCommMsg;
+                            }
+
+                            if(isset($_SESSION["userId"])) { 
+                                if($i["user_id"] == $_SESSION["userId"]) { 
+                        ?>
+                                    <form method="POST">
+                                        <input type="hidden" value= <?php echo $_GET["post"];?> name="post_id" />
+                                        <input type="submit" class="btn btn-danger" name="post_content_deletePost" value="Delete Post">
+                                    </form>
                         <?php 
                                 } 
                             }
@@ -153,11 +159,25 @@
                 ?>
             </div>
 
-
+        <?php   
+            }
+            else {
+                echo "  <div class='row justify-content-center py-4'>
+                            <span class='errorMsg'>Undefined Post ID</span>
+                        </div>";
+            }           
+        ?>
         </div>
         <div class="col-2"> </div>
     </div>
-
+    <?php
+    }
+    else {
+        echo "  <div class='row justify-content-center py-4'>
+                    <span class='errorMsg'>Undefined Post ID</span>
+                </div>";
+    }
+    ?>
 </body>
 <?php include 'footer.php'; ?>
 </html>

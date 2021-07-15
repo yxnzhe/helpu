@@ -21,7 +21,6 @@
                     $postId = $_POST["post_id"];
                     $comment = strip_tags($_POST["comment"]); //strip_tags is a php function to remove html tags from input for example <b></b>
                     $commentErrMsg = addComment($postId, $comment);
-                    echo "<script>alert('You Do Not Have Permission!')</script>";
                 }
             }
         }

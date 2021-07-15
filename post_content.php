@@ -5,32 +5,31 @@
         require_once "navbar.php";
         if (isset($_POST["post_comment_button"])) { //if the post comment button is clicked
             if(empty($_POST["comment"])) { //if the comment input field is empty
-                $postCommMsg = "<span class='errorMsg'>Comment is Empty</span>";
+                $postCommMsg = "<span class='errorMsg'>Comment is Empty</span>"; //error message will prompt
             }
             else { //if the comment input field is not empty
-                if(postExist($_POST["postId"])) {
+                if(postExist($_POST["postId"])) { //the post exist in database or postExist function return value 1
                     $postId = $_POST["postId"];
                     $comment = strip_tags($_POST["comment"]); //strip_tags is a php function to remove html tags from input for example <b></b>
                     $postCommMsg = addComment($postId, $comment);
                 }
             }
         }
-
-        if (isset($_POST["post_content_deleteComment"])) { //else if the delete button is clicked
+        else if (isset($_POST["post_content_deleteComment"])) { //else if the delete comment button is clicked
             if(isset($_POST["commentId"]) && commentDeletePermission($_POST["commentId"])) {
                 $deleteCommMsg = deleteComment($_POST["commentId"]);
+                echo "<script>alert('Comment deleted!')</script>"; //error message will prompt
             }
             else {
-                echo "<script>alert('You Do Not Have Permission!')</script>";
+                echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt
             }
         }
-
-        if (isset($_POST["post_content_deletePost"])) { //else if delete post button is clicked
+        else if (isset($_POST["post_content_deletePost"])) { //else if delete post button is clicked
             if(isset($_POST["post_id"]) && postDeletePermission($_POST["post_id"])) { //if the user have permission to delete the post (is the owner of the post)
                 $deletePostMsg = deletePost($_POST["post_id"]); //delete the post
             }
             else { //the user do not have permission to delete the post (not the owner of the post)
-                echo "<script>alert('You Do Not Have Permission!')</script>";
+                echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt
             }
         }
     ?>

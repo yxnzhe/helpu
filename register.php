@@ -1,10 +1,24 @@
 <html>
 <head>
-    <?php require_once "navbar.php"?>
+    <?php 
+    require_once "navbar.php";
+    if(isset($_POST["register"])){ //if the register button is clicked
+        if(empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["conPassword"])) { //if name, email, password or confirm password is empty
+            $registerMsg = "<span class='errorMsg'>Invalid Form Submission</span>";//error message will be prompted
+        }   
+        else if (!checkEmail($_POST["email"])) {} //check whether the email exist in database o not
+        else { //if email doesn't exist and all field is not empty
+            $name = strip_tags($_POST["name"]); //strip_tags is a php function to remove html tags from input for example <b></b>
+            $email = strip_tags($_POST["email"]); //strip_tags is a php function to remove html tags from input for example <b></b>
+            $password = $_POST["password"];
+            $confirmPass = $_POST["conPassword"];
+            $registerMsg = register($name, $email, $password, $confirmPass);
+        }
+    }
+    ?>
 </head>
 <body>
     <?php 
-        require_once "function.php";
         if(!$_SESSION["isLogin"]) { //if user is not logged in
     ?>
     <div class="container p-4 mt-5 register" style="width: 400px; border: 1px solid black; margin-bottom: 3rem!important;">
@@ -30,18 +44,8 @@
                 <input type="submit" name="register" class="btn btn-primary" value="Register" /> <!--Login Button-->
             </form>
             <?php
-                if(isset($_POST["register"])){
-                    if(!isset($_POST["name"]) || !isset($_POST["email"]) || !isset($_POST["password"]) || !isset($_POST["conPassword"])) { //if email or password is empty
-                        echo "<span style='color: red; font-size: 20px;'>Invalid Form Submission</span>";//error message will be prompted
-                    }
-                    else if (!checkEmail($_POST["email"])) {}
-                    else {
-                        $name = strip_tags($_POST["name"]);
-                        $email = strip_tags($_POST["email"]);
-                        $password = $_POST["password"];
-                        $confirmPass = $_POST["conPassword"];
-                        register($name, $email, $password, $confirmPass);
-                    }
+                if(isset($registerMsg)){ //if there's value return for register error message
+                    echo $registerMsg; //print the register error message
                 }
             ?>
         </div>
@@ -58,7 +62,7 @@
     </div>
     <?php 
         }
-        else {
+        else { //if user is not login
             header("Location: index.php");  
         }
     ?>

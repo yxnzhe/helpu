@@ -2,12 +2,18 @@
 <head>
   <?php
     require_once "navbar.php";
+    if(isset($_POST["login"])) { //if user clicks login button
+        if(empty($_POST["email"]) || empty($_POST["password"])) { //if email or password is empty
+            $loginMsg = "<span class='errorMsg'>Invalid Form Submission</span>";//error message will be prompted
+        }
+        else { //if email and password is present                        
+            $loginMsg = login($_POST["email"], $_POST["password"]); //to login the user based on the email, password and ischeckout, errorMsg will not be empty if error occurs at the function
+        }
+    }
   ?>
 </head>
 <body>
     <?php
-        require_once "function.php";
-        
         if(!$_SESSION["isLogin"]) { //if user is not logged in
     ?>
     <div class="container p-4 mt-5" style="width: 400px; border: 1px solid black; margin-bottom: 4rem!important;">
@@ -25,13 +31,8 @@
                 <input type="submit" name="login" class="btn btn-primary" value="Login" /> <!--Login Button-->
             </form>
             <?php
-                if(isset($_POST["login"])) { //if user clicks login button
-                    if(!isset($_POST["email"]) || !isset($_POST["password"])) { //if email or password is empty
-					  echo "<span style='color: red; font-size: 20px;'>Invalid Form Submission</span>";//error message will be prompted
-                    }
-                    else { //if email and password is present                        
-						login($_POST["email"], $_POST["password"]); //to login the user based on the email, password and ischeckout, errorMsg will not be empty if error occurs at the function
-                    }
+                if(isset($loginMsg)){
+                    echo $loginMsg;
                 }
             ?>
         </div>

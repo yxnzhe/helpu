@@ -11,18 +11,18 @@
     //         echo "<script>alert('".$loginMsg."')</script>";
     //     }
     // }
-    if(isset($_POST["register"])){
-        if(empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["conPassword"])) { //if name, email, password or confirm password is empty
-            $registerMsg = "<span class='errorMsg'>Invalid Form Submission</span>";//error message will be prompted
-        }
-        else{
-            $name = strip_tags($_POST["name"]); //strip_tags is a php function to remove html tags from input for example <b></b>
-            $email = strip_tags($_POST["email"]); //strip_tags is a php function to remove html tags from input for example <b></b>
-            $password = $_POST["password"];
-            $confirmPass = $_POST["conPassword"];
-            $registerMsg = register($name, $email, $password, $confirmPass);    
-        }
-    }
+    // if(isset($_POST["register"])){
+    //     if(empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["conPassword"])) { //if name, email, password or confirm password is empty
+    //         $registerMsg = "<span class='errorMsg'>Invalid Form Submission</span>";//error message will be prompted
+    //     }
+    //     else{
+    //         $name = strip_tags($_POST["name"]); //strip_tags is a php function to remove html tags from input for example <b></b>
+    //         $email = strip_tags($_POST["email"]); //strip_tags is a php function to remove html tags from input for example <b></b>
+    //         $password = $_POST["password"];
+    //         $confirmPass = $_POST["conPassword"];
+    //         $registerMsg = register($name, $email, $password, $confirmPass);    
+    //     }
+    // }
     if(isset($_SESSION["register"])){ //if user was redirect to register from navbar
         if($_SESSION["register"]){ //is redirect to register form from navbar
             echo "<script>window.onload = function() {showRegister();};</script>"; //call js showRegister() function 
@@ -87,7 +87,7 @@
                 <form class="col-12" method="POST"> <!--Form of the login-->
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Name..." required/> <!--Where user input their name-->
+                        <input type="text" id="regName" name="name" class="form-control" placeholder="Name..." required/> <!--Where user input their name-->
                     </div>
                     <div class="form-group">
                         <label>Email address</label>
@@ -95,13 +95,13 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password..." onclick="emailValidation()" id="password" required/> <!--Where user input their password-->
+                        <input type="password" id="regPass" name="password" class="form-control" placeholder="Password..." onclick="emailValidation()" id="password" required/> <!--Where user input their password-->
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
-                        <input type="password" name="conPassword" class="form-control" placeholder="Confirm Password..." onclick="emailValidation()" id="confirmPassword" required/> <!--Where user input their password-->
+                        <input type="password" id="regConfirmPass" name="conPassword" class="form-control" placeholder="Confirm Password..." onclick="emailValidation()" id="confirmPassword" required/> <!--Where user input their password-->
                     </div>
-                    <input type="submit" name="register" class="btn btn-primary" value="Register" /> <!--Login Button-->
+                    <input type="button" onclick="registerFunction()" name="register" class="btn btn-primary" value="Register" /> <!--Login Button-->
                 </form>
                 <span id="regMsg" class="errorMsg"></span>
                 <?php

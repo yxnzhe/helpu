@@ -39,38 +39,38 @@
         return $uniqEmail;
     }
 
-    function register($name, $email, $password, $confirmPassword) { //function to allow user to register to the website
-        if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
-            echo "<span class='errorMsg'>All field is Mandatory!</span>";
-        }
-        else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
-            echo "<span class='errorMsg'>Invalid email format!</span>";
-        }
-        else if($password != $confirmPassword){ //Check whether the password and confirm password is match or not
-            echo "<span class='errorMsg'>Password does not match!</span>";
-        }
-        else { //If all field is with value and the email format is correct, then will create the user in our database
-            $conn = connectDb();
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            $userId = md5(microtime()); //Auto generate a string + number comment id
+    // function register($name, $email, $password, $confirmPassword) { //function to allow user to register to the website
+    //     if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
+    //         echo "<span class='errorMsg'>All field is Mandatory!</span>";
+    //     }
+    //     else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
+    //         echo "<span class='errorMsg'>Invalid email format!</span>";
+    //     }
+    //     else if($password != $confirmPassword){ //Check whether the password and confirm password is match or not
+    //         echo "<span class='errorMsg'>Password does not match!</span>";
+    //     }
+    //     else { //If all field is with value and the email format is correct, then will create the user in our database
+    //         $conn = connectDb();
+    //         $password = password_hash($password, PASSWORD_DEFAULT);
+    //         $userId = md5(microtime()); //Auto generate a string + number comment id
 
-            $sql = "INSERT INTO `user` (id, name, email, password) VALUES (?, ?, ?, ?)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssss", $userId, $name, $email, $password);
+    //         $sql = "INSERT INTO `user` (id, name, email, password) VALUES (?, ?, ?, ?)";
+    //         $stmt = $conn->prepare($sql);
+    //         $stmt->bind_param("ssss", $userId, $name, $email, $password);
 
-            if($stmt->execute()) {
-                $_SESSION["userId"] = $userId;
-                $_SESSION["isLogin"] = true;
-                echo "<script> location.href='index.php'; </script>";    
-            }
-            else{ //if stmt can't execute
-                echo "<span class='errorMsg'>".$conn->error."</span>";//error message will prompt
-            }
+    //         if($stmt->execute()) {
+    //             $_SESSION["userId"] = $userId;
+    //             $_SESSION["isLogin"] = true;
+    //             echo "<script> location.href='index.php'; </script>";    
+    //         }
+    //         else{ //if stmt can't execute
+    //             echo "<span class='errorMsg'>".$conn->error."</span>";//error message will prompt
+    //         }
 
-            $stmt->close();
-            $conn->close();
-        }
-    }
+    //         $stmt->close();
+    //         $conn->close();
+    //     }
+    // }
 
     function login($email, $password) { //function to allow user to login to the website
         $errorMsg = "";

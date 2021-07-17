@@ -14,11 +14,11 @@
 <?php
     session_start();
     require_once "function.php";
+    require_once "users.php";
 
     if(!isset($_SESSION["isLogin"])) { //if isLogin is not initiated before
         $_SESSION["isLogin"] = false; //to initiate isLogin as false
     }
-
     if(isset($_POST["logout"])) { //if user clicks logout button
         session_destroy(); //session will be destroyed
         header("Refresh:0"); //website will be refreshed

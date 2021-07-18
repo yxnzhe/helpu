@@ -14,11 +14,7 @@
 <?php
     session_start();
     require_once "function.php";
-    require_once "users.php";
-
-    if(!isset($_SESSION["isLogin"])) { //if isLogin is not initiated before
-        $_SESSION["isLogin"] = false; //to initiate isLogin as false
-    }
+    
     if(isset($_POST["logout"])) { //if user clicks logout button
         session_destroy(); //session will be destroyed
         header("Refresh:0"); //website will be refreshed
@@ -55,7 +51,7 @@
                 <div class="collapse navbar-collapse ml-5 ml-lg-0" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                             <?php
-                                if(!$_SESSION["isLogin"]) { //if user is not logged in
+                                if(!isset($_SESSION["userId"])) { //if user is not logged in
                             ?>
                                     <li class="nav-item mx-1 pt-1">
                                         <a class="nav-link" class="text-right">

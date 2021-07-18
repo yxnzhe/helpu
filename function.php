@@ -25,7 +25,7 @@
             
             if($count > 0) { //count greater than 0 means that the email exist in our database
                 $uniqEmail = false; //return the email is not unique or uniqEmail is false
-                echo "<span class='errorMsg'>Email Address Already Exist!</span>"; //print error message
+                // echo "<span class='errorMsg'>Email Address Already Exist!</span>"; //print error message
             }
             else { //count smaller than 0 means that the email does not exist in our database
                 $uniqEmail = true; //return the email is unique or uniqEmail is true
@@ -37,79 +37,6 @@
         $stmt->close();
         $conn->close();
         return $uniqEmail;
-    }
-
-    // function register($name, $email, $password, $confirmPassword) { //function to allow user to register to the website
-    //     if($name == "" || $email == "" || $password == "") { //Check whether all field is filled up with value
-    //         echo "<span class='errorMsg'>All field is Mandatory!</span>";
-    //     }
-    //     else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) { //Check whether the email format is correct or not
-    //         echo "<span class='errorMsg'>Invalid email format!</span>";
-    //     }
-    //     else if($password != $confirmPassword){ //Check whether the password and confirm password is match or not
-    //         echo "<span class='errorMsg'>Password does not match!</span>";
-    //     }
-    //     else { //If all field is with value and the email format is correct, then will create the user in our database
-    //         $conn = connectDb();
-    //         $password = password_hash($password, PASSWORD_DEFAULT);
-    //         $userId = md5(microtime()); //Auto generate a string + number comment id
-
-    //         $sql = "INSERT INTO `user` (id, name, email, password) VALUES (?, ?, ?, ?)";
-    //         $stmt = $conn->prepare($sql);
-    //         $stmt->bind_param("ssss", $userId, $name, $email, $password);
-
-    //         if($stmt->execute()) {
-    //             $_SESSION["userId"] = $userId;
-    //             $_SESSION["isLogin"] = true;
-    //             echo "<script> location.href='index.php'; </script>";    
-    //         }
-    //         else{ //if stmt can't execute
-    //             echo "<span class='errorMsg'>".$conn->error."</span>";//error message will prompt
-    //         }
-
-    //         $stmt->close();
-    //         $conn->close();
-    //     }
-    // }
-
-    function login($email, $password) { //function to allow user to login to the website
-        $errorMsg = "";
-        if($email == "" || $password == "") { //to validate whether email or password is empty
-            $errorMsg = "<span class='errorMsg'>All field is Mandatory!</span>";//if email or password is empty, error message will prompt
-        }
-        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { //to validate whether user has entered a valid email format
-            $errorMsg = "<span class='errorMsg'>Invalid email format!</span>";//if email format is invalid, this error message will prompt
-        }
-        else { //if email and password is entered as required
-            $conn = connectDb(); //connect to databsae
-            $sql = "SELECT `id`, password FROM user WHERE email = ?"; //query to select id and password from user table based on email
-
-            $stmt = $conn->prepare($sql); //to prepare the query
-            $stmt->bind_param("s", $email); //to bind the email with the email entered by user
-
-            if($stmt->execute()) { //to execute
-                $stmt->bind_result($id, $pass); //to bind the result of id and password based on the query
-                if($stmt->fetch()) { //to fetch
-                    if(password_verify($password, $pass)) { //to verify whether the password entered by user is equal to the password in the database
-                        $_SESSION["userId"] = $id; //if password is entered correctly, $_SESSION["userId] will set to the user's id
-                        $_SESSION["isLogin"] = true;
-                        echo "<script> location.href='index.php'; </script>";
-                    }
-                    else { //if password is invalid
-                        $errorMsg = "<span class='errorMsg'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
-                    }
-                }
-                else { //if cant fetch
-                    $errorMsg = "<span class='errorMsg'>Login Failed. Invalid Email/Password.</span>";//error message will prompt
-                }
-            }
-            else { //if $stmt cant execute
-                $errorMsg = "<span class='errorMsg'>".$conn->error."</span>";//error message will prompt
-            }
-            $stmt->close();
-            $conn->close();
-            return $errorMsg;
-        }
     }
 
     function post($content) { //function to create post in database

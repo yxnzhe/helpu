@@ -70,11 +70,11 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="regPass" name="password" class="form-control" placeholder="Password..." onclick="emailValidation()" id="password" required/> <!--Where user input their password-->
+                        <input type="password" id="regPass" name="password" class="form-control" placeholder="Password..." required/> <!--Where user input their password-->
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
-                        <input type="password" id="regConfirmPass" name="conPassword" class="form-control" placeholder="Confirm Password..." onclick="emailValidation()" id="confirmPassword" required/> <!--Where user input their password-->
+                        <input type="password" id="regConfirmPass" name="conPassword" class="form-control" placeholder="Confirm Password..." required/> <!--Where user input their password-->
                     </div>
                     <input type="button" onclick="registerFunction()" name="register" class="btn btn-primary" value="Register" /> <!--Login Button-->
                 </form>

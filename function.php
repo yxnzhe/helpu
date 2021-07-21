@@ -70,8 +70,8 @@
             }
             $stmt->close();
             $conn->close();
-            return $msg;
         }
+        return $msg;
     }
 
     function deletePost($postId) { //function to delete post from database

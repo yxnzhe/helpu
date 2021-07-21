@@ -28,7 +28,7 @@
 
         if (isset($_POST["deletePost"])) { //else if delete post button is clicked
             if(isset($_POST["post_id"]) && postDeletePermission($_POST["post_id"])) { //if the user have permission to delete the post (is the owner of the post)
-                $deleteMsg = deletePost($_POST["post_id"]); //delete the post
+                $deletePostMsg = deletePost($_POST["post_id"]); //delete the post
             }
             else { //the user do not have permission to delete the post (not the owner of the post)
                 echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt
@@ -82,8 +82,8 @@
                     </div>
             <?php
                 }
-                if(isset($deleteMsg)){ //if get the post id and permission to post (which is user has been autheticated), the post will be deleted
-                    echo $deleteMsg; //print the error message
+                if(isset($deletePostMsg)){//if get the post id and permission to post (which is user has been autheticated), the post will be deleted
+                    echo $deletePostMsg;//print the error message
                 }
             ?>
             <br />
@@ -128,8 +128,12 @@
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 
+<<<<<<< HEAD
+                                            <a href="login.php">
+=======
                                             <a href="entry.php">
                                                 <!-- If user has not being sign up/log into their account, they will be redirected to the login/signup page which is entry.php -->
+>>>>>>> main
                                                 <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
                                             </a>
                                             <span class="font-weight-bold" style="font-size: 16px">now to comment</span>
@@ -178,7 +182,7 @@
                                 <?php 
                                     if (!isset($_SESSION["userId"])) {  // the user that has not login/sign up, and the session is empty which means no user id, user will be prompted to the entry.php to login/sign up
                                 ?>
-                                    <a href="entry.php">
+                                    <a href="login.php">
                                         <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up now to post</span>
                                     </a>
                                 <?php 

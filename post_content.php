@@ -14,10 +14,9 @@
                 }
             }
         }
-        if (isset($_POST["post_content_deleteComment"])) { //if the delete comment button is clicked
+        if (isset($_POST["post_content_deleteComment"])) { //else if the delete comment button is clicked
             if(isset($_POST["commentId"]) && commentDeletePermission($_POST["commentId"])) { //user have permission to delete and the comment is with valid comment id
                 $deleteCommMsg = deleteComment($_POST["commentId"]); //call the deleteComment function by passing the commendId
-                echo "<script>alert('Comment deleted!')</script>"; //comment deleted message will prompt
             }
             else { //if the comment dont have valid commentId or dont have permission to delete
                 echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt
@@ -79,7 +78,8 @@
                                             </div>
                                         </form>
                                     <?php
-                                    } else { //user is not login
+                                    } 
+                                    else { //user is not login
                                     ?>
                                         <div class="row">
                                             <div class="col-12">
@@ -107,15 +107,15 @@
                                                 <input type="submit" class="btn btn-danger" name="post_content_deletePost" value="Delete Post">
                                             </form>
                                     <?php
+                                            if(isset($deletePostMsg)) {
+                                                echo $deletePostMsg;
+                                            }
                                         }
                                     }
                                     ?>
                                 </div>
                             </div>
                         <?php
-                        }
-                        if (isset($deleteMsg)) {
-                            echo $deleteMsg;
                         }
                         ?>
                     </div>
@@ -140,16 +140,11 @@
                                                     <!-- delete comment button -->
                                                     <input type="submit" class="btn btn-danger mr-5" name="post_content_deleteComment" value="Delete Comment">
                                                 </form>
-                                                <?php
-                                                if (isset($deleteMsg)) {
-                                                    echo $deleteMsg;
-                                                }
-                                                ?>
                                             </div>
                                     <?php
                                         }
                                     }
-                                    if (isset($_POST["post_content_commentId"]) && $_POST["post_content_commentId"] == $c['commentId']) { //if commentId isset and commentId is the same as the commentId that we foreach out (valid commentId)
+                                    if(isset($_POST["commentId"]) && $_POST["commentId"] == $c['commentId']) { //if commentId isset and commentId is the same as the commentId that we foreach out (valid commentId)
                                         if (isset($deleteCommMsg)) { //if delete comment message isset
                                             echo $deleteCommMsg; //echo the message
                                         }
@@ -159,7 +154,8 @@
                                 <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                         <?php
                             }
-                        } else { //there's no comment for this post or count = 0
+                        } 
+                        else { //there's no comment for this post or count = 0
                             echo "  <div class='row justify-content-center py-4'>
                                     <span style='font-size: 20px;'>No Comment</span>
                                 </div>";

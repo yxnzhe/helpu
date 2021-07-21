@@ -12,38 +12,41 @@
 
 <body>
 <?php
-    session_start();
-    require_once "function.php";
+    session_start(); //start session so that we are able to use session variable
+    require_once "function.php"; //require function.php so that we can call function in any page
     
     if(isset($_POST["logout"])) { //if user clicks logout button
         session_destroy(); //session will be destroyed
         header("Refresh:0"); //website will be refreshed
         header("Location: index.php"); //user will be redirected to index.php
     }
-    if(isset($_POST["register"])){
-        $_SESSION["register"] = true;
-        header("Location: entry.php"); //user will be redirected to entry.php
+    if(isset($_POST["register"])){ //if user click register button
+        $_SESSION["register"] = true; //register session will be true and when redirect to entry.php will show the register form
+        header("Location: entry.php"); //user will be redirect to entry.php
     }
-    else if(isset($_POST["login"])){
-        $_SESSION["register"] = false;
-        header("Location: entry.php"); //user will be redirected to entry.php
+    else if(isset($_POST["login"])){ //if user click login button
+        $_SESSION["register"] = false; //register session will be false and when redirect to entry.php will show the login form
+        header("Location: entry.php"); //user will be redirect to entry.php
     }
 ?>  
     <nav class="navbar sticky-top navbar-expand-lg navbar-light px-3 py-2" style="background-color: #a2c3fa;">
         <div class="container-fluid">
             <div class="col-2 col-lg-3 p-0">
+                <!-- Website Logo -->
                 <a class="navbar-brand align-center" href="index.php">
                     <img src="imgs/helpu.png" alt="HelpU Student Website Logo" width="85px" height="80px">
                 </a>
             </div>
 
             <div class="col-8 col-lg-6 text-center p-0">
+                <!-- Website Name -->
                 <a class="navbar-brand" href="index.php">
                     <h1 class="d-none d-lg-block">HelpU Student Website</h1>
                     <span class="d-lg-none font-weight-bold" style="font-size:30px">HelpU Student Website</span>
                 </a>
             </div>
             <div class="col-2 col-lg-3 p-0">
+                <!-- If the browser minimized to certain size then will the login and register button will be in the toogle button -->
                 <button class="navbar-toggler ml-5" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <!--Navbar's toggler-->
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -56,6 +59,7 @@
                                     <li class="nav-item mx-1 pt-1">
                                         <a class="nav-link" class="text-right">
                                             <form method="POST">
+                                                <!-- login button -->
                                                 <img src="imgs/login_icon.png" alt="Login" width="23px" height="23px">
                                                 <input type="submit" name="login" style="background-color: #a2c3fa; border-width: 0px; font-size:18px;" value="Login" /> <!--Logout at navbar to logout the user-->
                                             </form>
@@ -65,6 +69,7 @@
                                     <li class="nav-item mx-1 pt-1">
                                         <a class="nav-link" class="text-right">
                                             <form method="POST">
+                                                <!-- register button -->
                                                 <img src="imgs/signup_icon.png" alt="SignUp" width="23px" height="23px">
                                                 <input type="submit" name="register" style="background-color: #a2c3fa; border-width: 0px; font-size:18px;" value="Register" /> <!--Logout at navbar to logout the user-->
                                             </form>
@@ -77,6 +82,7 @@
                             ?>
                                 <form method="POST">
                                     <li class="nav-item pt-1">
+                                        <!-- logout button when user already login -->
                                         <a class="nav-link">
                                         <img src="imgs/logout_icon.png" alt="Login" width="23px" height="23px">
                                             <input type="submit" name="logout" style="background-color: #a2c3fa; border-width: 0px; font-size:21px" value="Logout" /> <!--Logout at navbar to logout the user-->

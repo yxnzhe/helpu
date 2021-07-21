@@ -2,8 +2,8 @@
     session_start(); //to start the session
     require_once "function.php";
     
-    if(isset($_POST["type"])){ //to check if there is type
-        if($_POST["type"] == "register"){ //if type is to register user
+    if(isset($_POST["type"])) { //to check if there is type
+        if($_POST["type"] == "register") { //if type is to register user
             $name = $_POST["username"]; //to get name from post username
             $email = $_POST["email"]; //to get email from post email
             $password = $_POST["password"]; //to get password from post password
@@ -41,7 +41,7 @@
                 $conn->close();
             }
         }
-        else if($_POST["type"] == "login"){ //if type is to login user
+        else if($_POST["type"] == "login") { //if type is to login user
             $email = $_POST["email"]; //to set email as post email
             $password = $_POST["password"]; //to set password as post password
 
@@ -79,5 +79,8 @@
                 $conn->close();
             }
         }
+    }
+    else {
+        header("Location: index.php");
     }
 ?>

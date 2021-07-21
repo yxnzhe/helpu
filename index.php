@@ -67,7 +67,7 @@
                     <div class="row">
                         <div class="col-2"> </div>
                         <div class="col-8 text-center mt-3"> 
-                            <a href="login.php">
+                            <a href="entry.php">
                                 <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up </span>
                             </a>
                             <span class="font-weight-bold" style="font-size: 25px">now to post</span>
@@ -117,7 +117,7 @@
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 
-                                            <a href="login.php">
+                                            <a href="entry.php">
                                                 <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
                                             </a>
                                             <span class="font-weight-bold" style="font-size: 16px">now to comment</span>
@@ -163,7 +163,7 @@
                                 <?php 
                                     if (!isset($_SESSION["userId"])) { 
                                 ?>
-                                    <a href="login.php">
+                                    <a href="entry.php">
                                         <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up now to post</span>
                                     </a>
                                 <?php 

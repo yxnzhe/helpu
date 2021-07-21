@@ -41,7 +41,7 @@ function registerFunction(){ //ajax function to register
 
         var data = "username="+name+"&email="+email+"&password="+password+"&confirmPassword="+confirmPassword+"&type=register";
 
-        xmlhttp.open("POST", "users.php", true);
+        xmlhttp.open("POST", "authentication.php", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send(data);
     }
@@ -74,7 +74,7 @@ function loginFunction(){ //ajax function to login
 
         var data = "email="+email+"&password="+password+"&type=login";
 
-        xmlhttp.open("POST", "users.php", true);
+        xmlhttp.open("POST", "authentication.php", true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send(data);
     }

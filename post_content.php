@@ -73,7 +73,7 @@
                                     ?>
                                         <div class="row">
                                             <div class="col-12">
-                                                <a href="login.php">
+                                                <a href="entry.php">
                                                     <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
                                                 </a>
                                                 <span class="font-weight-bold" style="font-size: 16px">now to comment</span>

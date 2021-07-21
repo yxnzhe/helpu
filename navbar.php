@@ -22,11 +22,11 @@
     }
     if(isset($_POST["register"])){
         $_SESSION["register"] = true;
-        header("Location: login.php"); //user will be redirected to login.php
+        header("Location: entry.php"); //user will be redirected to entry.php
     }
     else if(isset($_POST["login"])){
         $_SESSION["register"] = false;
-        header("Location: login.php"); //user will be redirected to login.php
+        header("Location: entry.php"); //user will be redirected to entry.php
     }
 ?>  
     <nav class="navbar sticky-top navbar-expand-lg navbar-light px-3 py-2" style="background-color: #a2c3fa;">

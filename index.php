@@ -203,7 +203,7 @@
 </html>
 <script>
     // count for character for textarea
-    $('1').keyup(function() {    
+    $('textarea').keyup(function() {    
         var characterCount = $(this).val().length,
             current_count = $('#current_count'), //current character count
             maximum_count = $('#maximum_count'), //maximum character count

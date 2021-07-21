@@ -62,6 +62,10 @@
                                                 <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
                                                     <input type="hidden" value=<?php echo $_GET["post"]; ?> name="postId" />
                                                     <textarea maxlength="150" class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
+                                                    <div id="count" class="text-right">
+                                                        <span id="current_count">0</span>
+                                                        <span id="maximum_count">/ 150</span>
+                                                    </div>
                                                 </div>
                                                 <div class="col-2 p-0 col-lg-1">
                                                     <input type=submit name="post_comment_button" class="btn btn-primary" value="Post" />
@@ -173,3 +177,12 @@
 </body>
 <?php include 'footer.php'; ?>
 </html>
+<script>
+    $('textarea').keyup(function() {    
+        var characterCount = $(this).val().length,
+            current_count = $('#current_count'),
+            maximum_count = $('#maximum_count'),
+            count = $('#count');    
+            current_count.text(characterCount);        
+    });
+</script>

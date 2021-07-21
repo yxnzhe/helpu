@@ -17,7 +17,7 @@
         if (isset($_POST["post_content_deleteComment"])) { //else if the delete comment button is clicked
             if(isset($_POST["commentId"]) && commentDeletePermission($_POST["commentId"])) {
                 $deleteCommMsg = deleteComment($_POST["commentId"]);
-                echo "<script>alert('Comment deleted!')</script>"; //comment deleted message will prompt
+                echo "<script>alert('Comment deleted!')</script>"; //error message will prompt
             }
             else {
                 echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt

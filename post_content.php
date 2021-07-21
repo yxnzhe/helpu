@@ -43,7 +43,7 @@
                 <div class="col-2"> </div>
                 <div class="col-8">
                     <div class="card">
-                        <h5 class="card-header">Posts</h5>
+                        <h5 class="card-header">Posts</h5> <!--Posts Section-->
                         <?php
                         foreach ($getPost as $i) { //print out the post
                         ?>
@@ -107,8 +107,8 @@
                                                 <input type="submit" class="btn btn-danger" name="post_content_deletePost" value="Delete Post">
                                             </form>
                                     <?php
-                                            if(isset($deletePostMsg)) {
-                                                echo $deletePostMsg;
+                                            if(isset($deletePostMsg)) { //if there is message for delete post
+                                                echo $deletePostMsg; //message will prompt
                                             }
                                         }
                                     }
@@ -121,15 +121,15 @@
                     </div>
                     <br />
                     <div class="card">
-                        <h5 class="card-header">Comments</h5>
+                        <h5 class="card-header">Comments</h5> <!--Comments Section-->
                         <?php
                         $getComment = getComment($_GET["post"]); //get all comment for that post
                         if (count($getComment) > 0) { //if the comment count is greater than 0 means there's comment for this post
                             foreach ($getComment as $c) { //foreach all the comment
                         ?>
                                 <div class="card-body mb-1">
-                                    <h5 class="card-title"><?php echo $c["username"]; ?></h5>
-                                    <p class="card-text"><?php echo $c["content"]; ?></p>
+                                    <h5 class="card-title"><?php echo $c["username"]; ?></h5> <!--Display Username of Comment-->
+                                    <p class="card-text"><?php echo $c["content"]; ?></p> <!--Display Content of Comment-->
                                     <?php
                                     if (isset($_SESSION["userId"])) { //user is login
                                         if ($c["userId"] == $_SESSION["userId"]) { //the comment is belong to the current login user

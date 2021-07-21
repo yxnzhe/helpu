@@ -49,15 +49,19 @@
                         <div class="card-body">
                             <form method="POST" class="mb-0">
                                 <div class="mb-3">
-                                    <textarea maxlenght="255" class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
+                                    <textarea maxlength="255" class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea>
+                                    <div id="count" class="text-right">
+                                        <span id="current_count">0</span>
+                                        <span id="maximum_count">/ 255</span>
+                                    </div>
+                                    <?php
+                                        if(isset($postErrMsg)){
+                                            echo $postErrMsg;
+                                        }
+                                    ?>
                                 </div>
                                 <input type="submit" name="postPost" class="btn btn-primary" value="Post">
                             </form>
-                            <?php
-                                if(isset($postErrMsg)){
-                                    echo $postErrMsg;
-                                }
-                            ?>
                         </div>
                     </div>
             <?php 
@@ -67,7 +71,7 @@
                     <div class="row">
                         <div class="col-2"> </div>
                         <div class="col-8 text-center mt-3"> 
-                            <a href="login.php">
+                            <a href="entry.php">
                                 <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up </span>
                             </a>
                             <span class="font-weight-bold" style="font-size: 25px">now to post</span>
@@ -98,7 +102,7 @@
                                 <form method="POST" class="mb-0">
                                     <div class="mb-3 row">
                                         <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
-                                            <textarea maxlenght="150" class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
+                                            <textarea maxlength="150" class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
                                         </div>
                                         <div class="col-2 p-0 col-lg-1">
                                             <input type=submit name="postComment" class="btn btn-primary" value="Post" />
@@ -117,7 +121,7 @@
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 
-                                            <a href="login.php">
+                                            <a href="entry.php">
                                                 <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
                                             </a>
                                             <span class="font-weight-bold" style="font-size: 16px">now to comment</span>
@@ -163,7 +167,7 @@
                                 <?php 
                                     if (!isset($_SESSION["userId"])) { 
                                 ?>
-                                    <a href="login.php">
+                                    <a href="entry.php">
                                         <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up now to post</span>
                                     </a>
                                 <?php 
@@ -179,6 +183,15 @@
         </div>
         <div class="col-2"> </div>
     </div>
-
 </body>
 <?php include 'footer.php'; ?>
+</html>
+<script>
+    $('1').keyup(function() {    
+        var characterCount = $(this).val().length,
+            current_count = $('#current_count'),
+            maximum_count = $('#maximum_count'),
+            count = $('#count');    
+            current_count.text(characterCount);        
+    });
+</script>

@@ -1,27 +1,27 @@
 <html>
 <head>
     <?php
-        require_once "navbar.php";
+        require_once "navbar.php"; //require navbar into the page
         if(isset($_POST["postPost"])) { //if the post post button is clicked
             if(empty($_POST["post_content"])) { //if the post input field is empty
-                $postErrMsg = "<span class='errorMsg'>Content is Empty</span>";
+                $postErrMsg = "<span class='errorMsg'>Content is Empty</span>"; //error message will prompt
             }
             else { //if post input field is not empty
                 $postContent = strip_tags($_POST["post_content"]); //strip_tags is a php function to remove html tags from input for example <b></b>
-                $postErrMsg = post($postContent);
+                $postErrMsg = post($postContent); //call the add post function by passing content
             }
         }
 
         if (isset($_POST["postComment"])) { //else if the post comment button is clicked
             if(empty($_POST["comment"])) { //if the comment input field is empty
-                $commentErrMsg = "<span class='errorMsg'>Comment is Empty</span>";
+                $commentErrMsg = "<span class='errorMsg'>Comment is Empty</span>"; //error message will prompt
             }
             else { //if comment input field is not empty
                 if(postExist($_POST["post_id"])) { //if our post exist, we can get the post id
-                    $postId = $_POST["post_id"];
+                    $postId = $_POST["post_id"]; //get postId and set to $postId
                     $comment = strip_tags($_POST["comment"]); //strip_tags is a php function to remove html tags from input for example <b></b>
-                    $commentErrMsg = addComment($postId, $comment);
-                    echo "<script>alert('You Do Not Have Permission!')</script>";
+                    $commentErrMsg = addComment($postId, $comment); //call addComment function by passing the postId and comment message
+                    echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt
                 }
             }
         }
@@ -31,7 +31,7 @@
                 $deleteMsg = deletePost($_POST["post_id"]); //delete the post
             }
             else { //the user do not have permission to delete the post (not the owner of the post)
-                echo "<script>alert('You Do Not Have Permission!')</script>";
+                echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt
             }
         }
     ?>
@@ -42,7 +42,7 @@
         <div class="col-2"> </div>
         <div class="col-8">
             <?php 
-                if (isset($_SESSION["userId"])) { 
+                if (isset($_SESSION["userId"])) { //if user is not login
             ?>
                     <div class="card">
                         <h5 class="card-header">Create Post</h5>
@@ -83,7 +83,7 @@
             <?php
                 }
                 if(isset($deleteMsg)){ //if get the post id and permission to post (which is user has been autheticated), the post will be deleted
-                    echo $deleteMsg;
+                    echo $deleteMsg; //print the error message
                 }
             ?>
             <br />
@@ -96,7 +96,9 @@
                         foreach ($getAllPost as $i) { // this for each loop will loop through and display each detail of the post such as name and content
                 ?>
                             <div class="card-body mb-1">
+                                <!-- post owner's name -->
                                 <h5 class="card-title"><?php echo $i["name"]; ?></h5>
+                                <!-- post content -->
                                 <p class="card-text"><?php echo $i["content"];?></p>
                             <?php
                                 if(isset($_SESSION["userId"])) {  // the user that has login/sign up before, their user id will be stored can will be given permission to comment here  
@@ -116,13 +118,13 @@
                                     </div>
                                 </form>
                                 <?php
-                                    if(isset($_POST["post_id"]) && $_POST["post_id"] == $i['id']) {
+                                    if(isset($_POST["post_id"]) && $_POST["post_id"] == $i['id']) { //if postId isset and postId is same as the postId that's being foreach (valid postId)
                                         if(isset($commentErrMsg)){ // if the comment content is empty
                                             echo $commentErrMsg; // the empty comment content error message will be shown
                                         }
                                     }
                                 }
-                                else {
+                                else { //user is not login
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 
@@ -140,7 +142,7 @@
                                     <div class="row">
                                         <div class="col-6"> 
                                 <?php
-                                    if(isset($_SESSION["userId"])) { // the user that has login/sign up before, their user id will be stored can will be given permission to delete post here  
+                                    if(isset($_SESSION["userId"])) { // the user that has login/sign up, their user id will be stored can will be given permission to delete post here  
                                         if($i["user_id"] == $_SESSION["userId"]) { // if their user id matches the session user id, they can delete the post
                                 ?>
                                             <form method="POST">
@@ -166,7 +168,7 @@
                 <?php
                         }
                     }
-                    else {
+                    else { //there's no post or post count = 0
                 ?>  
                         <div class="row justify-content-center">
                             <div class="col-2"> </div>
@@ -174,7 +176,7 @@
                                 <span class="font-weight-bold" style="font-size: 25px">There is no Post</span><br />
                                 <span class="font-weight-bold" style="font-size: 25px">Post your first post now</span><br />
                                 <?php 
-                                    if (!isset($_SESSION["userId"])) {  // the user that has not login/sign up before, and the session is empty which means no user id, user will be prompted to the entry.php to login/sign up
+                                    if (!isset($_SESSION["userId"])) {  // the user that has not login/sign up, and the session is empty which means no user id, user will be prompted to the entry.php to login/sign up
                                 ?>
                                     <a href="entry.php">
                                         <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up now to post</span>
@@ -193,7 +195,7 @@
         <div class="col-2"> </div>
     </div>
 </body>
-<?php include 'footer.php'; ?>
+<?php require_once 'footer.php'; ?>
 </html>
 <script>
     // count for character for textarea

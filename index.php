@@ -45,12 +45,12 @@
                 if (isset($_SESSION["userId"])) { //if user is not login
             ?>
                     <div class="card">
-                        <h5 class="card-header">Create Post</h5>
+                        <h5 class="card-header">Create Post</h5> <!--Create Post Section-->
                         <div class="card-body">
                             <form method="POST" class="mb-0">
                                 <div class="mb-3">
                                     <textarea maxlength="255" class="form-control" name="post_content" rows="3" placeholder="What is your question?" required></textarea> 
-                                    <!-- max length limits less than 255 characters for us to ask our question  -->
+                                    <!-- Post Content Field, max length limits less than 255 characters for us to ask our question  -->
                                     <div id="count" class="text-right">
                                         <span id="current_count">0</span>
                                         <span id="maximum_count">/ 255</span>
@@ -61,13 +61,13 @@
                                         }
                                     ?>
                                 </div>
-                                <input type="submit" name="postPost" class="btn btn-primary" value="Post"> 
+                                <input type="submit" name="postPost" class="btn btn-primary" value="Post"> <!--Post Content Button-->
                             </form>
                         </div>
                     </div>
             <?php 
                 }
-                else {
+                else { //if user is not logged in
             ?>
                     <div class="row">
                         <div class="col-2"> </div>
@@ -88,7 +88,7 @@
             ?>
             <br />
             <div class="card">
-                <h5 class="card-header">Posts</h5>
+                <h5 class="card-header">Posts</h5> <!--Posts Section-->
                 <?php
                     $getAllPost = getAllPosts(); //function to retrieve all posts from database
 
@@ -107,10 +107,10 @@
                                     <div class="mb-3 row">
                                         <div class="col-10 col-lg-11 p-0 pr-1 px-md-3">
                                             <textarea maxlength="150" class="form-control" name="comment" rows="1" placeholder="Add a comment..." required></textarea>
-                                            <!-- max length limits less than 150 characters for us to ask comment  -->
+                                            <!-- Comment Field, max length limits less than 150 characters for us to ask comment  -->
                                         </div>
                                         <div class="col-2 p-0 col-lg-1">
-                                            <input type=submit name="postComment" class="btn btn-primary" value="Post" />
+                                            <input type=submit name="postComment" class="btn btn-primary" value="Post" /> <!--Post Comment Button-->
                                         </div>
                                         <input type="hidden" value= <?php echo $i["id"]?> name="post_id" /> 
                                         <!-- when a user post a comment their id is also being stored by hidden (which means user will not see on the website)
@@ -128,12 +128,8 @@
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 
-<<<<<<< HEAD
-                                            <a href="login.php">
-=======
                                             <a href="entry.php">
                                                 <!-- If user has not being sign up/log into their account, they will be redirected to the login/signup page which is entry.php -->
->>>>>>> main
                                                 <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
                                             </a>
                                             <span class="font-weight-bold" style="font-size: 16px">now to comment</span>
@@ -153,7 +149,7 @@
                                                 <input type="hidden" value= <?php echo $i["id"];?> name="post_id" />
                                                 <!-- when a user delete a post, the user id is also being stored by hidden (which means user will not see on the website)
                                                 so that we can know which specific user has access to delete the post -->
-                                                <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post">
+                                                <input type="submit" class="btn btn-danger" name="deletePost" value="Delete Post"> <!--Delete Post Button-->
                                             </form>
                                 <?php 
                                         } 

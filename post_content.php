@@ -17,7 +17,6 @@
         if (isset($_POST["post_content_deleteComment"])) { //else if the delete comment button is clicked
             if(isset($_POST["commentId"]) && commentDeletePermission($_POST["commentId"])) {
                 $deleteCommMsg = deleteComment($_POST["commentId"]);
-                echo "<script>alert('Comment deleted!')</script>"; //error message will prompt
             }
             else {
                 echo "<script>alert('You Do Not Have Permission!')</script>"; //error message will prompt
@@ -73,7 +72,8 @@
                                             </div>
                                         </form>
                                     <?php
-                                    } else {
+                                    } 
+                                    else {
                                     ?>
                                         <div class="row">
                                             <div class="col-12">
@@ -98,15 +98,15 @@
                                                 <input type="submit" class="btn btn-danger" name="post_content_deletePost" value="Delete Post">
                                             </form>
                                     <?php
+                                            if(isset($deletePostMsg)) {
+                                                echo $deletePostMsg;
+                                            }
                                         }
                                     }
                                     ?>
                                 </div>
                             </div>
                         <?php
-                        }
-                        if (isset($deleteMsg)) {
-                            echo $deleteMsg;
                         }
                         ?>
                     </div>
@@ -130,16 +130,11 @@
                                                     <input type="hidden" value=<?php echo $c["commentId"]; ?> name="commentId" />
                                                     <input type="submit" class="btn btn-danger mr-5" name="post_content_deleteComment" value="Delete Comment">
                                                 </form>
-                                                <?php
-                                                if (isset($deleteMsg)) {
-                                                    echo $deleteMsg;
-                                                }
-                                                ?>
                                             </div>
                                     <?php
                                         }
                                     }
-                                    if (isset($_POST["post_content_commentId"]) && $_POST["post_content_commentId"] == $c['commentId']) {
+                                    if(isset($_POST["commentId"]) && $_POST["commentId"] == $c['commentId']) {
                                         if (isset($deleteCommMsg)) {
                                             echo $deleteCommMsg;
                                         }
@@ -149,7 +144,8 @@
                                 <hr style="border-top: 25px solid #f3f3f3; margin: 0">
                         <?php
                             }
-                        } else {
+                        } 
+                        else {
                             echo "  <div class='row justify-content-center py-4'>
                                     <span style='font-size: 20px;'>No Comment</span>
                                 </div>";

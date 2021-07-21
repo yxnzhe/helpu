@@ -1,5 +1,5 @@
 <html>
-
+<!--This is the Footer page-->
 <body>
     <?php
     echo "<div class='footer' style='background-color:#022f7d;'><center><p style='color:white'>" .

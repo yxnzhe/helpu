@@ -28,7 +28,7 @@
 
         if (isset($_POST["deletePost"])) { //else if delete post button is clicked
             if(isset($_POST["post_id"]) && postDeletePermission($_POST["post_id"])) { //if the user have permission to delete the post (is the owner of the post)
-                $deleteMsg = deletePost($_POST["post_id"]); //delete the post
+                $deletePostMsg = deletePost($_POST["post_id"]); //delete the post
             }
             else { //the user do not have permission to delete the post (not the owner of the post)
                 echo "<script>alert('You Do Not Have Permission!')</script>";
@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="col-2"> </div>
                         <div class="col-8 text-center mt-3"> 
-                            <a href="entry.php">
+                            <a href="login.php">
                                 <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up </span>
                             </a>
                             <span class="font-weight-bold" style="font-size: 25px">now to post</span>
@@ -80,8 +80,8 @@
                     </div>
             <?php
                 }
-                if(isset($deleteMsg)){
-                    echo $deleteMsg;
+                if(isset($deletePostMsg)){
+                    echo $deletePostMsg;
                 }
             ?>
             <br />
@@ -121,7 +121,7 @@
                                 ?>
                                     <div class="row">
                                         <div class="col-12"> 
-                                            <a href="entry.php">
+                                            <a href="login.php">
                                                 <span class="font-weight-bold" style="font-size: 16px">Login/Sign Up </span>
                                             </a>
                                             <span class="font-weight-bold" style="font-size: 16px">now to comment</span>
@@ -167,7 +167,7 @@
                                 <?php 
                                     if (!isset($_SESSION["userId"])) { 
                                 ?>
-                                    <a href="entry.php">
+                                    <a href="login.php">
                                         <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up now to post</span>
                                     </a>
                                 <?php 

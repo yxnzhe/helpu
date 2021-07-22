@@ -180,7 +180,7 @@
                                 <?php 
                                     if (!isset($_SESSION["userId"])) {  // the user that has not login/sign up, and the session is empty which means no user id, user will be prompted to the entry.php to login/sign up
                                 ?>
-                                    <a href="login.php">
+                                    <a href="entry.php">
                                         <span class="font-weight-bold" style="font-size: 25px">Login/Sign Up now to post</span>
                                     </a>
                                 <?php 

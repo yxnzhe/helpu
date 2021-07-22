@@ -254,13 +254,13 @@
 
     function addComment($postId, $comment){ //function to allow user to post their comments
         $msg = "";
-        if($comment == ""){ //If comment is submitted without any values
+        if($comment == "") { //If comment is submitted without any values
             $msg = "<span class='errorMsg'>Comment is empty.</span>"; //error message will prompt
         }
-        else if(strlen($comment) > 150){ //If the comment exceeded 150 characters
+        else if(strlen($comment) > 150) { //If the comment exceeded 150 characters
             $msg = "<span class='errorMsg'>Comment cannot exceed 150 characters.</span>"; //error message will prompt
         }
-        else{
+        else {
             $conn = connectDb(); //connect to databsae
             $commentId = md5(microtime()); //Auto generate a string comment id
             $userId = $_SESSION["userId"]; //Get user_id from session that was set when user login
@@ -282,8 +282,8 @@
             }
             $stmt->close();
             $conn->close();
-            return $msg;
         }
+        return $msg;
     }
 
     function deleteComment($commentId) { //function to allow user to delete their comment
